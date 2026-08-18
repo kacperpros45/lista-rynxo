@@ -60,8 +60,8 @@
     <main id="zawartosc"></main>
     <footer>&copy; 2026 Rynxo Fandom Demon List. Wszelkie prawa zastrzeżone.</footer>
     <script>
-        const PUBLIC_API_URL = 'https://api.jsonstorage.net/v1/json/47b8f627-243d-40dd-9e66-4ff6fa48bd8e';
-        const API_KEY = '966ede0d-8238-43fe-949c-4d17d7de64ee';
+        const PUBLIC_API_URL = 'https://api.jsonstorage.net/v1/json/9aaf6816-231f-480e-ba1e-cf5fd2e886d3';
+        const API_KEY = '844e8ed1-4f05-4404-b40b-740edfcdf747';
 
         let appData = {
             users: [],
@@ -83,7 +83,7 @@
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    if (data && typeof data === 'object') {
+                    if (data && typeof data === 'object' && Object.keys(data).length > 0) {
                         appData.users = data.users || [];
                         appData.levels = data.levels || [];
                         appData.challenges = data.challenges || [];
@@ -94,47 +94,22 @@
                         appData.pending_records = data.pending_records || [];
                         appData.pending_challenge_records = data.pending_challenge_records || [];
                     }
-                } else if (response.status === 404) {
-                    // Jeśli zasób nie istnieje, próbujemy go utworzyć metodą POST lub wysłać bazowy stan
-                    await saveDataToCloud(true);
                 }
             } catch (error) {
-                console.log('Błąd połączenia z chmurą.');
+                console.log('Błąd pobierania z chmury.');
             }
         }
 
-        async function saveDataToCloud(isCreating = false) {
+        async function saveDataToCloud() {
             try {
-                // Jeśli kontener nie istnieje, używamy POST (lub tworzymy go w panelu jsonstorage), 
-                // ale najbezpieczniej dla tego API jest użycie endpointu głównego z POST jeśli UUID nie ma.
-                // Ponieważ mamy stały UUID w linku, najprościej jest wysłać PUT, a jeśli wywali 404 - spróbować POST na główny adres API.
-                let method = 'PUT';
-                let url = PUBLIC_API_URL;
-
-                let response = await fetch(url, {
-                    method: method,
+                await fetch(PUBLIC_API_URL, {
+                    method: 'PUT',
                     headers: { 
                         'Content-Type': 'application/json',
                         'Private-Key': API_KEY
                     },
                     body: JSON.stringify(appData)
                 });
-
-                if (response.status === 404 || isCreating) {
-                    // Jeśli PUT zwrócił 404, twórzmy nowy kontener przez POST na główny URL API (bez konkretnego UUID)
-                    const createResponse = await fetch('https://api.jsonstorage.net/v1/json', {
-                        method: 'POST',
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            'Private-Key': API_KEY
-                        },
-                        body: JSON.stringify(appData)
-                    });
-                    if (createResponse.ok) {
-                        const resData = await createResponse.json();
-                        console.log("Utworzono nowy kontener w chmurze! Podmień link w kodzie jeśli zmieniło się ID:", resData);
-                    }
-                }
             } catch (e) {
                 console.log('Nie udało się zapisać do chmury.');
             }
