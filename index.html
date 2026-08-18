@@ -95,23 +95,46 @@
                         appData.pending_challenge_records = data.pending_challenge_records || [];
                     }
                 } else if (response.status === 404) {
-                    await saveDataToCloud();
+                    // Jeśli zasób nie istnieje, próbujemy go utworzyć metodą POST lub wysłać bazowy stan
+                    await saveDataToCloud(true);
                 }
             } catch (error) {
-                console.log('Błąd połączenia z chmurą, używam pamięci lokalnej.');
+                console.log('Błąd połączenia z chmurą.');
             }
         }
 
-        async function saveDataToCloud() {
+        async function saveDataToCloud(isCreating = false) {
             try {
-                await fetch(PUBLIC_API_URL, {
-                    method: 'PUT',
+                // Jeśli kontener nie istnieje, używamy POST (lub tworzymy go w panelu jsonstorage), 
+                // ale najbezpieczniej dla tego API jest użycie endpointu głównego z POST jeśli UUID nie ma.
+                // Ponieważ mamy stały UUID w linku, najprościej jest wysłać PUT, a jeśli wywali 404 - spróbować POST na główny adres API.
+                let method = 'PUT';
+                let url = PUBLIC_API_URL;
+
+                let response = await fetch(url, {
+                    method: method,
                     headers: { 
                         'Content-Type': 'application/json',
                         'Private-Key': API_KEY
                     },
                     body: JSON.stringify(appData)
                 });
+
+                if (response.status === 404 || isCreating) {
+                    // Jeśli PUT zwrócił 404, twórzmy nowy kontener przez POST na główny URL API (bez konkretnego UUID)
+                    const createResponse = await fetch('https://api.jsonstorage.net/v1/json', {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Private-Key': API_KEY
+                        },
+                        body: JSON.stringify(appData)
+                    });
+                    if (createResponse.ok) {
+                        const resData = await createResponse.json();
+                        console.log("Utworzono nowy kontener w chmurze! Podmień link w kodzie jeśli zmieniło się ID:", resData);
+                    }
+                }
             } catch (e) {
                 console.log('Nie udało się zapisać do chmury.');
             }
