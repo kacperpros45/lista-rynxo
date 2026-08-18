@@ -94,6 +94,8 @@
                         appData.pending_records = data.pending_records || [];
                         appData.pending_challenge_records = data.pending_challenge_records || [];
                     }
+                } else if (response.status === 404) {
+                    await saveDataToCloud();
                 }
             } catch (error) {
                 console.log('Błąd pobierania z chmury.');
@@ -102,7 +104,7 @@
 
         async function saveDataToCloud() {
             try {
-                await fetch(PUBLIC_API_URL, {
+                let response = await fetch(PUBLIC_API_URL, {
                     method: 'PUT',
                     headers: { 
                         'Content-Type': 'application/json',
@@ -110,6 +112,17 @@
                     },
                     body: JSON.stringify(appData)
                 });
+
+                if (response.status === 404) {
+                    await fetch('https://api.jsonstorage.net/v1/json', {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Private-Key': API_KEY
+                        },
+                        body: JSON.stringify(appData)
+                    });
+                }
             } catch (e) {
                 console.log('Nie udało się zapisać do chmury.');
             }
