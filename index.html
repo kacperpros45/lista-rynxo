@@ -1,65 +1,4 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rynxo Fandom Demon List (RFDL)</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #121212; color: #e0e0e0; display: flex; flex-direction: column; min-height: 100vh; }
-        header { background-color: #1f1f1f; border-bottom: 2px solid #333; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: #ff4757; letter-spacing: 1px; cursor: pointer; }
-        nav { display: flex; align-items: center; gap: 15px; }
-        nav a, nav span { color: #aaa; text-decoration: none; transition: color 0.2s; cursor: pointer; font-size: 0.95rem; white-space: nowrap; }
-        nav a:hover, nav span:hover { color: #fff; }
-        .user-info { color: #ff4757; font-weight: bold; }
-        .badge-mod { background: #ffa502; color: #121212; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-left: 5px; }
-        main { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; width: 100%; max-width: 900px; margin: 0 auto; }
-        h1 { font-size: 2.5rem; margin-bottom: 20px; color: #fff; }
-        p { color: #777; font-size: 1.1rem; margin-bottom: 20px; }
-        .form-box { background: #1a1a1a; padding: 30px; border-radius: 8px; border: 1px solid #333; width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 15px; text-align: left; }
-        input, select, textarea { padding: 14px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 16px; resize: vertical; }
-        button { padding: 15px; background: #ff4757; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s, transform 0.1s; }
-        button:hover { background: #ff6b81; }
-        button.btn-accept { background: #2ed573; padding: 10px 16px; font-size: 0.95rem; }
-        button.btn-accept:hover { background: #26af5f; }
-        button.btn-reject { background: #ff4757; padding: 10px 16px; font-size: 0.95rem; }
-        button.btn-reject:hover { background: #ff6b81; }
-        .level-list, .ranking-list { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .level-card, .ranking-card { background: #1a1a1a; border: 1px solid #333; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; text-align: left; width: 100%; }
-        .ranking-card { cursor: pointer; transition: border-color 0.2s; }
-        .ranking-card:hover { border-color: #ff4757; }
-        .clickable-level { color: #fff; font-size: 1.2rem; cursor: pointer; transition: color 0.2s; }
-        .clickable-level:hover { color: #ff4757; text-decoration: underline; }
-        .level-info span { color: #888; font-size: 0.9rem; display: block; margin-top: 3px; }
-        .level-info a { color: #ff4757; text-decoration: none; word-break: break-all; }
-        .level-info a:hover { text-decoration: underline; }
-        .level-pos { font-size: 1.5rem; font-weight: bold; color: #ff4757; margin-right: 20px; min-width: 40px; }
-        .profile-box { background: #1a1a1a; border: 1px solid #333; padding: 25px; border-radius: 8px; width: 100%; text-align: left; margin-bottom: 20px; position: relative; }
-        .profile-box h2 { color: #fff; margin-bottom: 10px; }
-        .level-points-badge { position: absolute; top: 25px; right: 25px; background: #2ed573; color: #121212; padding: 8px 14px; border-radius: 6px; font-weight: bold; font-size: 1rem; }
-        .profile-stats { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; width: 100%; }
-        .profile-stats-row { display: flex; gap: 15px; width: 100%; }
-        .stat-card { background: #121212; padding: 15px; border-radius: 6px; border: 1px solid #222; flex: 1; }
-        .stat-card-full { background: #121212; padding: 15px; border-radius: 6px; border: 1px solid #222; width: 100%; }
-        .stat-card span, .stat-card-full span { color: #777; font-size: 0.85rem; display: block; }
-        .stat-card strong, .stat-card-full strong { color: #ff4757; font-size: 1.3rem; }
-        footer { background-color: #1f1f1f; text-align: center; padding: 15px; font-size: 0.9rem; color: #555; border-top: 1px solid #222; }
-        .error-msg { color: #ff4757; font-size: 0.9rem; }
-        .tabs-container { display: flex; gap: 10px; margin-bottom: 20px; width: 100%; }
-        .tab-btn { flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: #aaa; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; }
-        .tab-btn.active { background: #ff4757; color: white; border-color: #ff4757; }
-        .sync-status { font-size: 0.8rem; color: #2ed573; margin-top: 5px; }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="logo" onclick="zmienStrone('home')">RFDL</div>
-        <nav id="nav-menu"></nav>
-    </header>
-    <main id="zawartosc"></main>
-    <footer>&copy; 2026 Rynxo Fandom Demon List. Wszelkie prawa zastrzeżone.</footer>
-    <script>
+<script>
         const PUBLIC_API_URL = 'https://api.jsonstorage.net/v1/json/9aaf6816-231f-480e-ba1e-cf5fd2e886d3';
         const API_KEY = '844e8ed1-4f05-4404-b40b-740edfcdf747';
 
@@ -76,82 +15,78 @@
             current_user: localStorage.getItem('rfdl_current_user') || ''
         };
 
-        async function fetchDataFromCloud() {
-            try {
-                const response = await fetch(PUBLIC_API_URL, {
-                    headers: { 'Private-Key': API_KEY }
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data && typeof data === 'object' && Object.keys(data).length > 0) {
-                        appData.users = data.users || [];
-                        appData.levels = data.levels || [];
-                        appData.challenges = data.challenges || [];
-                        appData.pending = data.pending || [];
-                        appData.pending_challenges = data.pending_challenges || [];
-                        appData.records = data.records || [];
-                        appData.challenge_records = data.challenge_records || [];
-                        appData.pending_records = data.pending_records || [];
-                        appData.pending_challenge_records = data.pending_challenge_records || [];
+        function fetchDataFromCloud() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', PUBLIC_API_URL, true);
+            xhr.setRequestHeader('Private-Key', API_KEY);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            const data = JSON.parse(xhr.responseText);
+                            if (data && typeof data === 'object') {
+                                appData.users = data.users || [];
+                                appData.levels = data.levels || [];
+                                appData.challenges = data.challenges || [];
+                                appData.pending = data.pending || [];
+                                appData.pending_challenges = data.pending_challenges || [];
+                                appData.records = data.records || [];
+                                appData.challenge_records = data.challenge_records || [];
+                                appData.pending_records = data.pending_records || [];
+                                appData.pending_challenge_records = data.pending_challenge_records || [];
+                            }
+                        } catch (e) {}
+                    } else if (xhr.status === 404) {
+                        // Jeśli zasób nie istnieje w chmurze, utwórz go automatycznie
+                        saveDataToCloud();
                     }
-                } else if (response.status === 404) {
-                    await saveDataToCloud();
                 }
-            } catch (error) {
-                console.log('Błąd pobierania z chmury.');
-            }
+            };
+            xhr.send();
         }
 
-        async function saveDataToCloud() {
-            try {
-                let response = await fetch(PUBLIC_API_URL, {
-                    method: 'PUT',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Private-Key': API_KEY
-                    },
-                    body: JSON.stringify(appData)
-                });
-
-                if (response.status === 404) {
-                    await fetch('https://api.jsonstorage.net/v1/json', {
-                        method: 'POST',
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            'Private-Key': API_KEY
-                        },
-                        body: JSON.stringify(appData)
-                    });
+        function saveDataToCloud() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('PUT', PUBLIC_API_URL, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Private-Key', API_KEY);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 404) {
+                    // Jeśli PUT zwróci 404, robimy POST inicjalizacyjny
+                    const postXhr = new XMLHttpRequest();
+                    postXhr.open('POST', 'https://api.jsonstorage.net/v1/json', true);
+                    postXhr.setRequestHeader('Content-Type', 'application/json');
+                    postXhr.setRequestHeader('Private-Key', API_KEY);
+                    postXhr.send(JSON.stringify(appData));
                 }
-            } catch (e) {
-                console.log('Nie udało się zapisać do chmury.');
-            }
+            };
+            xhr.send(JSON.stringify(appData));
         }
 
         function pobierzUzytkownikow() { return appData.users || []; }
-        async function zapiszUzytkownikow(u) { appData.users = u; await saveDataToCloud(); }
+        function zapiszUzytkownikow(u) { appData.users = u; saveDataToCloud(); }
         function pobierzPoziomy() { return appData.levels || []; }
-        async function zapiszPoziomy(l) { appData.levels = l; await saveDataToCloud(); }
+        function zapiszPoziomy(l) { appData.levels = l; saveDataToCloud(); }
         function pobierzChallenge() { return appData.challenges || []; }
-        async function zapiszChallenge(c) { appData.challenges = c; await saveDataToCloud(); }
+        function zapiszChallenge(c) { appData.challenges = c; saveDataToCloud(); }
         function pobierzOczekujace() { return appData.pending || []; }
-        async function zapiszOczekujace(p) { appData.pending = p; await saveDataToCloud(); }
+        function zapiszOczekujace(p) { appData.pending = p; saveDataToCloud(); }
         function pobierzOczekujaceChallenge() { return appData.pending_challenges || []; }
-        async function zapiszOczekujaceChallenge(pc) { appData.pending_challenges = pc; await saveDataToCloud(); }
+        function zapiszOczekujaceChallenge(pc) { appData.pending_challenges = pc; saveDataToCloud(); }
         function pobierzRekordy() { return appData.records || []; }
-        async function zapiszRekordy(r) { appData.records = r; await saveDataToCloud(); }
+        function zapiszRekordy(r) { appData.records = r; saveDataToCloud(); }
         function pobierzChallengeRekordy() { return appData.challenge_records || []; }
-        async function zapiszChallengeRekordy(cr) { appData.challenge_records = cr; await saveDataToCloud(); }
+        function zapiszChallengeRekordy(cr) { appData.challenge_records = cr; saveDataToCloud(); }
         function pobierzOczekujaceRekordy() { return appData.pending_records || []; }
-        async function zapiszOczekujaceRekordy(pr) { appData.pending_records = pr; await saveDataToCloud(); }
+        function zapiszOczekujaceRekordy(pr) { appData.pending_records = pr; saveDataToCloud(); }
         function pobierzOczekujaceChallengeRekordy() { return appData.pending_challenge_records || []; }
-        async function zapiszOczekujaceChallengeRekordy(pcr) { appData.pending_challenge_records = pcr; await saveDataToCloud(); }
+        function zapiszOczekujaceChallengeRekordy(pcr) { appData.pending_challenge_records = pcr; saveDataToCloud(); }
         
         function pobierzZalogowanego() { return appData.current_user || ''; }
-        async function ustawZalogowanego(u) { 
+        function ustawZalogowanego(u) { 
             appData.current_user = u ? u.trim() : ''; 
             localStorage.setItem('rfdl_current_user', appData.current_user);
-            await saveDataToCloud();
+            saveDataToCloud();
             odswiezMenu(); 
         }
 
@@ -165,7 +100,7 @@
             return Math.max(0, Number(punkty.toFixed(1)));
         }
 
-        async function edytujPozycjePoziomu(index, kategoria = 'level') {
+        function edytujPozycjePoziomu(index, kategoria = 'level') {
             const lista = kategoria === 'challenge' ? [...pobierzChallenge()] : [...pobierzPoziomy()];
             const nazwaListy = kategoria === 'challenge' ? 'Challenge List' : 'Demon List';
             const nowaPozycja = prompt(`Aktualna pozycja w ${nazwaListy}: ${index + 1}. Podaj nową pozycję (1-${lista.length}):`);
@@ -181,9 +116,9 @@
             lista.splice(n, 0, element);
             
             if (kategoria === 'challenge') {
-                await zapiszChallenge(lista);
+                zapiszChallenge(lista);
             } else {
-                await zapiszPoziomy(lista);
+                zapiszPoziomy(lista);
             }
             zmienStrone('panel_moda');
         }
@@ -224,13 +159,13 @@
             nav.innerHTML = html;
         }
 
-        async function wyloguj() {
-            await ustawZalogowanego('');
+        function wyloguj() {
+            ustawZalogowanego('');
             zmienStrone('home');
         }
 
-        async function zmienStrone(typ, extraParam = null) {
-            await fetchDataFromCloud();
+        function zmienStrone(typ, extraParam = null) {
+            fetchDataFromCloud();
             const main = document.getElementById('zawartosc');
             if (!main) return;
             odswiezMenu();
@@ -745,7 +680,7 @@
             selectPoziom.innerHTML = opcje;
         }
 
-        async function zarejestruj() {
+        function zarejestruj() {
             const login = document.getElementById('reg-login').value.trim();
             const pass = document.getElementById('reg-pass').value.trim();
             const err = document.getElementById('reg-error');
@@ -756,12 +691,12 @@
                 return;
             }
             users.push({ login, pass });
-            await zapiszUzytkownikow(users);
-            await ustawZalogowanego(login);
+            zapiszUzytkownikow(users);
+            ustawZalogowanego(login);
             zmienStrone('home');
         }
 
-        async function zaloguj() {
+        function zaloguj() {
             const login = document.getElementById('log-login').value.trim();
             const pass = document.getElementById('log-pass').value.trim();
             const err = document.getElementById('log-error');
@@ -771,11 +706,11 @@
                 err.innerText = "Niepoprawny login lub hasło!";
                 return;
             }
-            await ustawZalogowanego(login);
+            ustawZalogowanego(login);
             zmienStrone('home');
         }
 
-        async function wyslijZgłoszenie() {
+        function wyslijZgłoszenie() {
             const kategoria = document.getElementById('lvl-kategoria').value;
             const nazwa = document.getElementById('lvl-name').value.trim();
             const id = document.getElementById('lvl-id').value.trim();
@@ -789,17 +724,17 @@
             if (kategoria === 'challenge') {
                 let oczekujace = [...pobierzOczekujaceChallenge()];
                 oczekujace.push({ nazwa, id, nagranie, pozycja, autor });
-                await zapiszOczekujaceChallenge(oczekujace);
+                zapiszOczekujaceChallenge(oczekujace);
             } else {
                 let oczekujace = [...pobierzOczekujace()];
                 oczekujace.push({ nazwa, id, nagranie, pozycja, autor });
-                await zapiszOczekujace(oczekujace);
+                zapiszOczekujace(oczekujace);
             }
             alert("Zgłoszenie poziomu wysłane!");
             zmienStrone('lista', kategoria);
         }
 
-        async function wyslijRekord() {
+        function wyslijRekord() {
             const kategoria = document.getElementById('rec-kategoria').value;
             const poziom = document.getElementById('rec-level').value;
             const url = document.getElementById('rec-url').value.trim();
@@ -811,17 +746,17 @@
             if (kategoria === 'challenge') {
                 let oczekujace = [...pobierzOczekujaceChallengeRekordy()];
                 oczekujace.push({ poziom, url, gracz });
-                await zapiszOczekujaceChallengeRekordy(oczekujace);
+                zapiszOczekujaceChallengeRekordy(oczekujace);
             } else {
                 let oczekujace = [...pobierzOczekujaceRekordy()];
                 oczekujace.push({ poziom, url, gracz });
-                await zapiszOczekujaceRekordy(oczekujace);
+                zapiszOczekujaceRekordy(oczekujace);
             }
             alert("Zgłoszenie rekordu wysłane!");
             zmienStrone('leaderboard', kategoria);
         }
 
-        async function akceptujZgłoszenie(index, kategoria = 'level') {
+        function akceptujZgłoszenie(index, kategoria = 'level') {
             if (kategoria === 'challenge') {
                 let oczekujace = [...pobierzOczekujaceChallenge()];
                 let lista = [...pobierzChallenge()];
@@ -832,9 +767,9 @@
                 if (docelowaPozycja > lista.length) lista.push(zatwierdzony);
                 else lista.splice(docelowaPozycja, 0, zatwierdzony);
                 rekordy.push({ poziom: zatwierdzony.nazwa, url: zatwierdzony.nagranie, gracz: zatwierdzony.autor });
-                await zapiszOczekujaceChallenge(oczekujace);
-                await zapiszChallenge(lista);
-                await zapiszChallengeRekordy(rekordy);
+                zapiszOczekujaceChallenge(oczekujace);
+                zapiszChallenge(lista);
+                zapiszChallengeRekordy(rekordy);
             } else {
                 let oczekujace = [...pobierzOczekujace()];
                 let lista = [...pobierzPoziomy()];
@@ -845,126 +780,124 @@
                 if (docelowaPozycja > lista.length) lista.push(zatwierdzony);
                 else lista.splice(docelowaPozycja, 0, zatwierdzony);
                 rekordy.push({ poziom: zatwierdzony.nazwa, url: zatwierdzony.nagranie, gracz: zatwierdzony.autor });
-                await zapiszOczekujace(oczekujace);
-                await zapiszPoziomy(lista);
-                await zapiszRekordy(rekordy);
+                zapiszOczekujace(oczekujace);
+                zapiszPoziomy(lista);
+                zapiszRekordy(rekordy);
             }
             zmienStrone('panel_moda');
         }
 
-        async function odrzucZgłoszenie(index, kategoria = 'level') {
+        function odrzucZgłoszenie(index, kategoria = 'level') {
             if (kategoria === 'challenge') {
                 let oczekujace = [...pobierzOczekujaceChallenge()];
                 oczekujace.splice(index, 1);
-                await zapiszOczekujaceChallenge(oczekujace);
+                zapiszOczekujaceChallenge(oczekujace);
             } else {
                 let oczekujace = [...pobierzOczekujace()];
                 oczekujace.splice(index, 1);
-                await zapiszOczekujace(oczekujace);
+                zapiszOczekujace(oczekujace);
             }
             zmienStrone('panel_moda');
         }
 
-        async function akceptujRekord(index, kategoria = 'level') {
+        function akceptujRekord(index, kategoria = 'level') {
             if (kategoria === 'challenge') {
                 let oczekujace = [...pobierzOczekujaceChallengeRekordy()];
                 let rekordy = [...pobierzChallengeRekordy()];
                 let zatwierdzonyRec = oczekujace.splice(index, 1)[0];
                 rekordy.push(zatwierdzonyRec);
-                await zapiszOczekujaceChallengeRekordy(oczekujace);
-                await zapiszChallengeRekordy(rekordy);
+                zapiszOczekujaceChallengeRekordy(oczekujace);
+                zapiszChallengeRekordy(rekordy);
             } else {
                 let oczekujace = [...pobierzOczekujaceRekordy()];
                 let rekordy = [...pobierzRekordy()];
                 let zatwierdzonyRec = oczekujace.splice(index, 1)[0];
                 rekordy.push(zatwierdzonyRec);
-                await zapiszOczekujaceRekordy(oczekujace);
-                await zapiszRekordy(rekordy);
+                zapiszOczekujaceRekordy(oczekujace);
+                zapiszRekordy(rekordy);
             }
             zmienStrone('panel_moda');
         }
 
-        async function odrzucRekord(index, kategoria = 'level') {
+        function odrzucRekord(index, kategoria = 'level') {
             if (kategoria === 'challenge') {
                 let oczekujace = [...pobierzOczekujaceChallengeRekordy()];
                 oczekujace.splice(index, 1);
-                await zapiszOczekujaceChallengeRekordy(oczekujace);
+                zapiszOczekujaceChallengeRekordy(oczekujace);
             } else {
                 let oczekujace = [...pobierzOczekujaceRekordy()];
                 oczekujace.splice(index, 1);
-                await zapiszOczekujaceRekordy(oczekujace);
+                zapiszOczekujaceRekordy(oczekujace);
             }
             zmienStrone('panel_moda');
         }
 
-        async function usunZatwierdzonyPoziom(index, kategoria = 'level') {
+        function usunZatwierdzonyPoziom(index, kategoria = 'level') {
             if (confirm("Usunąć ten poziom?")) {
                 if (kategoria === 'challenge') {
                     let lista = [...pobierzChallenge()];
                     let usunietyLvl = lista.splice(index, 1)[0];
-                    await zapiszChallenge(lista);
+                    zapiszChallenge(lista);
                     if (usunietyLvl) {
                         let rekordy = pobierzChallengeRekordy();
-                        await zapiszChallengeRekordy(rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase()));
+                        zapiszChallengeRekordy(rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase()));
                     }
                 } else {
                     let lista = [...pobierzPoziomy()];
                     let usunietyLvl = lista.splice(index, 1)[0];
-                    await zapiszPoziomy(lista);
+                    zapiszPoziomy(lista);
                     if (usunietyLvl) {
                         let rekordy = pobierzRekordy();
-                        await zapiszRekordy(rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase()));
+                        zapiszRekordy(rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase()));
                     }
                 }
                 zmienStrone('panel_moda');
             }
         }
 
-        async function usunZatwierdzonyPoziomLista(index, kategoria = 'level') {
+        function usunZatwierdzonyPoziomLista(index, kategoria = 'level') {
             if (confirm("Usunąć ten poziom?")) {
                 if (kategoria === 'challenge') {
                     let lista = [...pobierzChallenge()];
                     let usunietyLvl = lista.splice(index, 1)[0];
-                    await zapiszChallenge(lista);
+                    zapiszChallenge(lista);
                     if (usunietyLvl) {
                         let rekordy = pobierzChallengeRekordy();
-                        await zapiszChallengeRekordy(rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase()));
+                        zapiszChallengeRekordy(rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase()));
                     }
                 } else {
                     let lista = [...pobierzPoziomy()];
                     let usunietyLvl = lista.splice(index, 1)[0];
-                    await zapiszPoziomy(lista);
+                    zapiszPoziomy(lista);
                     if (usunietyLvl) {
                         let rekordy = pobierzRekordy();
-                        await zapiszRekordy(rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase()));
+                        zapiszRekordy(rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase()));
                     }
                 }
                 zmienStrone('lista', kategoria);
             }
         }
 
-        async function usunZatwierdzonyRekord(index, kategoria = 'level') {
+        function usunZatwierdzonyRekord(index, kategoria = 'level') {
             if (confirm("Usunąć ten rekord?")) {
                 if (kategoria === 'challenge') {
                     let rekordy = [...pobierzChallengeRekordy()];
                     rekordy.splice(index, 1);
-                    await zapiszChallengeRekordy(rekordy);
+                    zapiszChallengeRekordy(rekordy);
                 } else {
                     let rekordy = [...pobierzRekordy()];
                     rekordy.splice(index, 1);
-                    await zapiszRekordy(rekordy);
+                    zapiszRekordy(rekordy);
                 }
                 zmienStrone('panel_moda');
             }
         }
 
-        async function init() {
-            await fetchDataFromCloud();
+        function init() {
+            fetchDataFromCloud();
             odswiezMenu();
             zmienStrone('home');
         }
 
         init();
     </script>
-</body>
-</html>
