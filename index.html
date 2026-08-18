@@ -94,9 +94,12 @@
                         appData.pending_records = data.pending_records || [];
                         appData.pending_challenge_records = data.pending_challenge_records || [];
                     }
+                } else if (response.status === 404) {
+                    // Jeśli plik nie istnieje w chmurze, utwórz go automatycznie
+                    await saveDataToCloud();
                 }
             } catch (error) {
-                console.log('Korzystam z lokalnego bufora (offline).');
+                console.log('Błąd połączenia z chmurą, używam pamięci lokalnej.');
             }
         }
 
@@ -111,7 +114,7 @@
                     body: JSON.stringify(appData)
                 });
             } catch (e) {
-                localStorage.setItem('rfdl_backup_data', JSON.stringify(appData));
+                console.log('Nie udało się zapisać do chmury.');
             }
         }
 
