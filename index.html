@@ -60,8 +60,8 @@
     <main id="zawartosc"></main>
     <footer>&copy; 2026 Rynxo Fandom Demon List. Wszelkie prawa zastrzeżone.</footer>
     <script>
-        // Oficjalny endpoint jsonstorage.net z Twoim ID oraz kluczem API
-        const PUBLIC_API_URL = 'https://api.jsonstorage.net/v1/json/47b8f627-243d-40dd-9e66-4ff6fa48bd8e?apiKey=966ede0d-8238-43fe-949c-4d17d7de64ee';
+        const PUBLIC_API_URL = 'https://api.jsonstorage.net/v1/json/47b8f627-243d-40dd-9e66-4ff6fa48bd8e';
+        const API_KEY = '966ede0d-8238-43fe-949c-4d17d7de64ee';
 
         let appData = {
             users: [],
@@ -78,7 +78,9 @@
 
         async function fetchDataFromCloud() {
             try {
-                const response = await fetch(PUBLIC_API_URL);
+                const response = await fetch(PUBLIC_API_URL, {
+                    headers: { 'Private-Key': API_KEY }
+                });
                 if (response.ok) {
                     const data = await response.json();
                     if (data && typeof data === 'object') {
@@ -102,7 +104,10 @@
             try {
                 await fetch(PUBLIC_API_URL, {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Private-Key': API_KEY
+                    },
                     body: JSON.stringify(appData)
                 });
             } catch (e) {
