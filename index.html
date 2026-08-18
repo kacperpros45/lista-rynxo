@@ -95,7 +95,6 @@
                         appData.pending_challenge_records = data.pending_challenge_records || [];
                     }
                 } else if (response.status === 404) {
-                    // Jeśli plik nie istnieje w chmurze, utwórz go automatycznie
                     await saveDataToCloud();
                 }
             } catch (error) {
