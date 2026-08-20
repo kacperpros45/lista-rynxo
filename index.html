@@ -273,23 +273,15 @@
             flex: 1;
         }
 
-        .stat-card-full {
-            background: #121212;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid #222;
-            width: 100%;
-        }
-
-        .stat-card span, .stat-card-full span {
+        .stat-card span {
             color: #777;
             font-size: 0.85rem;
             display: block;
         }
 
-        .stat-card strong, .stat-card-full strong {
+        .stat-card strong {
             color: #ff4757;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
 
         footer {
@@ -367,7 +359,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Globalny stan aplikacji pobierany z Firebase
         window.appData = {
             users: [],
             levels: [],
@@ -381,7 +372,6 @@
             current_user: localStorage.getItem('rfdl_current_user') || ''
         };
 
-        // Pobieranie całego stanu z bazy danych
         window.pobierzBaze = async function() {
             try {
                 const snapshot = await get(child(ref(db), "rfdl_data"));
@@ -402,7 +392,6 @@
             }
         };
 
-        // Zapisywanie całego stanu do bazy danych
         window.zapiszBaze = async function() {
             try {
                 await set(ref(db, "rfdl_data"), {
@@ -791,13 +780,13 @@
                                     <span>Punkty Challenge List</span>
                                     <strong>${Number(punktyChallenge.toFixed(1))} pkt</strong>
                                 </div>
+                            </div>
+                            <div class="profile-stats-row">
                                 <div class="stat-card">
                                     <span>Hardest (Demon)</span>
                                     <strong>${hardestDemon}</strong>
                                 </div>
-                            </div>
-                            <div class="profile-stats-row">
-                                <div class="stat-card-full">
+                                <div class="stat-card">
                                     <span>Hardest (Challenge)</span>
                                     <strong>${hardestChallenge}</strong>
                                 </div>
@@ -1337,7 +1326,6 @@
             }
         };
 
-        // Start aplikacji: pobranie danych i uruchomienie strony głównej
         (async function() {
             await pobierzBaze();
             odswiezMenu();
