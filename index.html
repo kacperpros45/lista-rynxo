@@ -351,7 +351,7 @@
     <!-- Skrypt Firebase i cała logika strony -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-        import { getDatabase, ref, get, set, push, remove, child } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
+        import { getDatabase, ref, get, set, child } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyD72VIdFc_sNM3_w9FxFvGmc4ewTbNAETw",
@@ -421,7 +421,6 @@
             }
         };
 
-        // Pomocnicze funkcje zgodne z Twoim kodem
         window.pobierzUzytkownikow = () => window.appData.users;
         window.zapiszUzytkownikow = async (u) => { window.appData.users = u; await window.zapiszBaze(); };
         
@@ -459,12 +458,12 @@
         window.czyJestModem = function(login) {
             if (!login) return false;
             return login.trim().toLowerCase() === 'kacperpros45';
-        }
+        };
 
         window.obliczPunktyZaPoziom = function(index) {
             const punkty = 250 - (index * 2.5);
             return Math.max(0, Number(punkty.toFixed(1)));
-        }
+        };
 
         window.edytujPozycjePoziomu = async function(index, kategoria = 'level') {
             const lista = kategoria === 'challenge' ? pobierzChallenge() : pobierzPoziomy();
@@ -487,7 +486,7 @@
                 await zapiszPoziomy(lista);
             }
             zmienStrone('panel_moda');
-        }
+        };
 
         window.odswiezMenu = function() {
             const zalogowany = pobierzZalogowanego();
@@ -523,15 +522,14 @@
             }
 
             nav.innerHTML = html;
-        }
+        };
 
         window.wyloguj = function() {
             ustawZalogowanego('');
             zmienStrone('home');
-        }
+        };
 
         window.zmienStrone = async function(typ, extraParam = null) {
-            // Zawsze przed renderowaniem odświeżamy dane z chmury, żeby widzieć zmiany innych graczy
             await pobierzBaze();
             
             const main = document.getElementById('zawartosc');
@@ -1061,7 +1059,7 @@
                     ${activeChalRecordsHtml}
                 `;
             }
-        }
+        };
 
         window.aktualizujListePoziomowRekordu = function() {
             const kategoria = document.getElementById('rec-kategoria').value;
@@ -1075,7 +1073,7 @@
                 opcje += `<option value="${lvl.nazwa}">${lvl.nazwa} (ID: ${lvl.id})</option>`;
             });
             selectPoziom.innerHTML = opcje;
-        }
+        };
 
         window.zarejestruj = async function() {
             const login = document.getElementById('reg-login').value.trim();
@@ -1097,7 +1095,7 @@
             await zapiszUzytkownikow(users);
             ustawZalogowanego(login);
             zmienStrone('home');
-        }
+        };
 
         window.zaloguj = function() {
             const login = document.getElementById('log-login').value.trim();
@@ -1114,7 +1112,7 @@
 
             ustawZalogowanego(login);
             zmienStrone('home');
-        }
+        };
 
         window.wyslijZgłoszenie = async function() {
             const kategoria = document.getElementById('lvl-kategoria').value;
@@ -1142,7 +1140,7 @@
             
             alert("Zgłoszenie poziomu zostało wysłane do akceptacji!");
             zmienStrone('lista', kategoria);
-        }
+        };
 
         window.wyslijRekord = async function() {
             const kategoria = document.getElementById('rec-kategoria').value;
@@ -1168,7 +1166,7 @@
 
             alert("Zgłoszenie rekordu zostało wysłane do akceptacji!");
             zmienStrone('leaderboard', kategoria);
-        }
+        };
 
         window.akceptujZgłoszenie = async function(index, kategoria = 'level') {
             if (kategoria === 'challenge') {
@@ -1219,7 +1217,7 @@
                 await zapiszRekordy(rekordy);
             }
             zmienStrone('panel_moda');
-        }
+        };
 
         window.odrzucZgłoszenie = async function(index, kategoria = 'level') {
             if (kategoria === 'challenge') {
@@ -1232,7 +1230,7 @@
                 await zapiszOczekujace(oczekujace);
             }
             zmienStrone('panel_moda');
-        }
+        };
 
         window.akceptujRekord = async function(index, kategoria = 'level') {
             if (kategoria === 'challenge') {
@@ -1255,7 +1253,7 @@
                 await zapiszRekordy(rekordy);
             }
             zmienStrone('panel_moda');
-        }
+        };
 
         window.odrzucRekord = async function(index, kategoria = 'level') {
             if (kategoria === 'challenge') {
@@ -1268,7 +1266,7 @@
                 await zapiszOczekujaceRekordy(oczekujace);
             }
             zmienStrone('panel_moda');
-        }
+        };
 
         window.usunZatwierdzonyPoziom = async function(index, kategoria = 'level') {
             if (confirm("Czy na pewno chcesz usunąć ten poziom z listy? Usunięcie usunie również wszystkie rekordy ukończenia tego poziomu.")) {
@@ -1295,7 +1293,7 @@
                 }
                 zmienStrone('panel_moda');
             }
-        }
+        };
 
         window.usunZatwierdzonyPoziomLista = async function(index, kategoria = 'level') {
             if (confirm("Czy na pewno chcesz usunąć ten poziom z listy? Usunięcie usunie również wszystkie rekordy ukończenia tego poziomu.")) {
@@ -1322,7 +1320,7 @@
                 }
                 zmienStrone('lista', kategoria);
             }
-        }
+        };
 
         window.usunZatwierdzonyRekord = async function(index, kategoria = 'level') {
             if (confirm("Czy na pewno chcesz usunąć ten rekord?")) {
@@ -1337,7 +1335,7 @@
                 }
                 zmienStrone('panel_moda');
             }
-        }
+        };
 
         // Start aplikacji: pobranie danych i uruchomienie strony głównej
         (async function() {
