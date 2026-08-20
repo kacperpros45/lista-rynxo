@@ -5,43 +5,332 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rynxo Fandom Demon List (RFDL)</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #121212; color: #e0e0e0; display: flex; flex-direction: column; min-height: 100vh; }
-        header { background-color: #1f1f1f; border-bottom: 2px solid #333; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: #ff4757; letter-spacing: 1px; cursor: pointer; }
-        nav { display: flex; align-items: center; gap: 15px; }
-        nav a, nav span { color: #aaa; text-decoration: none; transition: color 0.2s; cursor: pointer; font-size: 0.95rem; white-space: nowrap; }
-        nav a:hover, nav span:hover { color: #fff; }
-        .user-info { color: #ff4757; font-weight: bold; }
-        .badge-mod { background: #ffa502; color: #121212; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-left: 5px; }
-        main { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; width: 100%; max-width: 900px; margin: 0 auto; }
-        h1 { font-size: 2.5rem; margin-bottom: 20px; color: #fff; }
-        p { color: #777; font-size: 1.1rem; margin-bottom: 20px; }
-        .form-box { background: #1a1a1a; padding: 30px; border-radius: 8px; border: 1px solid #333; width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 15px; text-align: left; }
-        input, select, textarea { padding: 14px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 16px; }
-        button { padding: 15px; background: #ff4757; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        button:hover { background: #ff6b81; }
-        button.btn-accept { background: #2ed573; padding: 10px 16px; font-size: 0.95rem; }
-        button.btn-reject { background: #ff4757; padding: 10px 16px; font-size: 0.95rem; }
-        .level-card, .ranking-card { background: #1a1a1a; border: 1px solid #333; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; text-align: left; width: 100%; margin-top: 10px; }
-        .clickable-level { color: #fff; font-size: 1.2rem; cursor: pointer; }
-        .clickable-level:hover { color: #ff4757; text-decoration: underline; }
-        .level-info span { color: #888; font-size: 0.9rem; display: block; margin-top: 3px; }
-        .level-info a { color: #ff4757; text-decoration: none; word-break: break-all; }
-        .level-pos { font-size: 1.5rem; font-weight: bold; color: #ff4757; margin-right: 20px; min-width: 40px; }
-        .profile-box { background: #1a1a1a; border: 1px solid #333; padding: 25px; border-radius: 8px; width: 100%; text-align: left; margin-bottom: 20px; position: relative; }
-        .level-points-badge { position: absolute; top: 25px; right: 25px; background: #2ed573; color: #121212; padding: 8px 14px; border-radius: 6px; font-weight: bold; }
-        .profile-stats { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; width: 100%; }
-        .profile-stats-row { display: flex; gap: 15px; width: 100%; }
-        .stat-card, .stat-card-full { background: #121212; padding: 15px; border-radius: 6px; border: 1px solid #222; flex: 1; }
-        .stat-card-full { width: 100%; }
-        .stat-card span, .stat-card-full span { color: #777; font-size: 0.85rem; display: block; }
-        .stat-card strong, .stat-card-full strong { color: #ff4757; font-size: 1.3rem; }
-        footer { background-color: #1f1f1f; text-align: center; padding: 15px; font-size: 0.9rem; color: #555; border-top: 1px solid #222; }
-        .error-msg { color: #ff4757; font-size: 0.9rem; }
-        .tabs-container { display: flex; gap: 10px; margin-bottom: 20px; width: 100%; }
-        .tab-btn { flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: #aaa; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; }
-        .tab-btn.active { background: #ff4757; color: white; border-color: #ff4757; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            border-bottom: 2px solid #333;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff4757;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        nav a, nav span {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.2s;
+            cursor: pointer;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        nav a:hover, nav span:hover {
+            color: #fff;
+        }
+
+        .user-info {
+            color: #ff4757;
+            font-weight: bold;
+        }
+
+        .badge-mod {
+            background: #ffa502;
+            color: #121212;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        p {
+            color: #777;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .form-box {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        input, select, textarea {
+            padding: 14px;
+            background: #121212;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 15px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background: #ff6b81;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button.btn-accept {
+            background: #2ed573;
+            padding: 10px 16px;
+            font-size: 0.95rem;
+        }
+        button.btn-accept:hover {
+            background: #26af5f;
+        }
+
+        button.btn-reject {
+            background: #ff4757;
+            padding: 10px 16px;
+            font-size: 0.95rem;
+        }
+        button.btn-reject:hover {
+            background: #ff6b81;
+        }
+
+        .level-list, .ranking-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .level-card, .ranking-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 15px 20px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            width: 100%;
+        }
+
+        .ranking-card {
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .ranking-card:hover {
+            border-color: #ff4757;
+        }
+
+        .clickable-level {
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .clickable-level:hover {
+            color: #ff4757;
+            text-decoration: underline;
+        }
+
+        .level-info span {
+            color: #888;
+            font-size: 0.9rem;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .level-info a {
+            color: #ff4757;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .level-info a:hover {
+            text-decoration: underline;
+        }
+
+        .level-pos {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff4757;
+            margin-right: 20px;
+            min-width: 40px;
+        }
+
+        .profile-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 25px;
+            border-radius: 8px;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .profile-box h2 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .level-points-badge {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: #2ed573;
+            color: #121212;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .profile-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .profile-stats-row {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .stat-card {
+            background: #121212;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #222;
+            flex: 1;
+        }
+
+        .stat-card-full {
+            background: #121212;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #222;
+            width: 100%;
+        }
+
+        .stat-card span, .stat-card-full span {
+            color: #777;
+            font-size: 0.85rem;
+            display: block;
+        }
+
+        .stat-card strong, .stat-card-full strong {
+            color: #ff4757;
+            font-size: 1.3rem;
+        }
+
+        footer {
+            background-color: #1f1f1f;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #555;
+            border-top: 1px solid #222;
+        }
+
+        .error-msg {
+            color: #ff4757;
+            font-size: 0.9rem;
+        }
+        
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #aaa;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: #ff4757;
+            color: white;
+            border-color: #ff4757;
+        }
     </style>
 </head>
 <body>
@@ -51,96 +340,133 @@
         <nav id="nav-menu"></nav>
     </header>
 
-    <main id="zawartosc">Wczytywanie danych z serwera...</main>
+    <main id="zawartosc">
+        <p>Ładowanie danych z bazy Firebase...</p>
+    </main>
 
     <footer>
         &copy; 2026 Rynxo Fandom Demon List. Wszelkie prawa zastrzeżone.
     </footer>
 
-    <script>
-        // Twój unikalny link z npoint.io
-        const API_URL = "https://api.npoint.io/68ede3744ad89b4b754b";
+    <!-- Skrypt Firebase i cała logika strony -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+        import { getDatabase, ref, get, set, push, remove, child } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
-        let db = {
-            rfdl_users: [],
-            rfdl_levels: [],
-            rfdl_challenges: [],
-            rfdl_pending: [],
-            rfdl_pending_challenges: [],
-            rfdl_records: [],
-            rfdl_challenge_records: [],
-            rfdl_pending_records: [],
-            rfdl_pending_challenge_records: [],
-            rfdl_current_user: ''
+        const firebaseConfig = {
+            apiKey: "AIzaSyD72VIdFc_sNM3_w9FxFvGmc4ewTbNAETw",
+            authDomain: "rynxo-fandom-demon-list.firebaseapp.com",
+            databaseURL: "https://rynxo-fandom-demon-list-default-rtdb.firebaseio.com",
+            projectId: "rynxo-fandom-demon-list",
+            storageBucket: "rynxo-fandom-demon-list.firebasestorage.app",
+            messagingSenderId: "260280833548",
+            appId: "1:260280833548:web:605edcd8d235b721244029",
+            measurementId: "G-YKV6XKZHWJ"
         };
 
-        async function wczytajDaneZServera() {
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Globalny stan aplikacji pobierany z Firebase
+        window.appData = {
+            users: [],
+            levels: [],
+            challenges: [],
+            pending: [],
+            pending_challenges: [],
+            records: [],
+            challenge_records: [],
+            pending_records: [],
+            pending_challenge_records: [],
+            current_user: localStorage.getItem('rfdl_current_user') || ''
+        };
+
+        // Pobieranie całego stanu z bazy danych
+        window.pobierzBaze = async function() {
             try {
-                const response = await fetch(API_URL);
-                if (response.ok) {
-                    const data = await response.json();
-                    db = { ...db, ...data };
+                const snapshot = await get(child(ref(db), "rfdl_data"));
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    window.appData.users = data.users || [];
+                    window.appData.levels = data.levels || [];
+                    window.appData.challenges = data.challenges || [];
+                    window.appData.pending = data.pending || [];
+                    window.appData.pending_challenges = data.pending_challenges || [];
+                    window.appData.records = data.records || [];
+                    window.appData.challenge_records = data.challenge_records || [];
+                    window.appData.pending_records = data.pending_records || [];
+                    window.appData.pending_challenge_records = data.pending_challenge_records || [];
                 }
-            } catch (error) {
-                console.error("Błąd podczas pobierania danych:", error);
+            } catch (e) {
+                console.error("Błąd pobierania bazy:", e);
             }
-            odswiezMenu();
-            zmienStrone('home');
-        }
+        };
 
-        async function zapiszNaSerwerze() {
+        // Zapisywanie całego stanu do bazy danych
+        window.zapiszBaze = async function() {
             try {
-                await fetch(API_URL, {
-                    method: 'PUT', // npoint.io używa PUT do aktualizacji istniejących binów
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(db)
+                await set(ref(db, "rfdl_data"), {
+                    users: window.appData.users,
+                    levels: window.appData.levels,
+                    challenges: window.appData.challenges,
+                    pending: window.appData.pending,
+                    pending_challenges: window.appData.pending_challenges,
+                    records: window.appData.records,
+                    challenge_records: window.appData.challenge_records,
+                    pending_records: window.appData.pending_records,
+                    pending_challenge_records: window.appData.pending_challenge_records
                 });
-            } catch (error) {
-                console.error("Błąd podczas zapisu danych:", error);
+            } catch (e) {
+                console.error("Błąd zapisu bazy:", e);
             }
-        }
+        };
 
-        function pobierzUzytkownikow() { return db.rfdl_users || []; }
-        async function zapiszUzytkownikow(u) { db.rfdl_users = u; await zapiszNaSerwerze(); }
+        // Pomocnicze funkcje zgodne z Twoim kodem
+        window.pobierzUzytkownikow = () => window.appData.users;
+        window.zapiszUzytkownikow = async (u) => { window.appData.users = u; await window.zapiszBaze(); };
         
-        function pobierzPoziomy() { return db.rfdl_levels || []; }
-        async function zapiszPoziomy(l) { db.rfdl_levels = l; await zapiszNaSerwerze(); }
+        window.pobierzPoziomy = () => window.appData.levels;
+        window.zapiszPoziomy = async (l) => { window.appData.levels = l; await window.zapiszBaze(); };
 
-        function pobierzChallenge() { return db.rfdl_challenges || []; }
-        async function zapiszChallenge(c) { db.rfdl_challenges = c; await zapiszNaSerwerze(); }
+        window.pobierzChallenge = () => window.appData.challenges;
+        window.zapiszChallenge = async (c) => { window.appData.challenges = c; await window.zapiszBaze(); };
 
-        function pobierzOczekujace() { return db.rfdl_pending || []; }
-        async function zapiszOczekujace(p) { db.rfdl_pending = p; await zapiszNaSerwerze(); }
+        window.pobierzOczekujace = () => window.appData.pending;
+        window.zapiszOczekujace = async (p) => { window.appData.pending = p; await window.zapiszBaze(); };
 
-        function pobierzOczekujaceChallenge() { return db.rfdl_pending_challenges || []; }
-        async function zapiszOczekujaceChallenge(pc) { db.rfdl_pending_challenges = pc; await zapiszNaSerwerze(); }
+        window.pobierzOczekujaceChallenge = () => window.appData.pending_challenges || [];
+        window.zapiszOczekujaceChallenge = async (pc) => { window.appData.pending_challenges = pc; await window.zapiszBaze(); };
 
-        function pobierzRekordy() { return db.rfdl_records || []; }
-        async function zapiszRekordy(r) { db.rfdl_records = r; await zapiszNaSerwerze(); }
+        window.pobierzRekordy = () => window.appData.records;
+        window.zapiszRekordy = async (r) => { window.appData.records = r; await window.zapiszBaze(); };
 
-        function pobierzChallengeRekordy() { return db.rfdl_challenge_records || []; }
-        async function zapiszChallengeRekordy(cr) { db.rfdl_challenge_records = cr; await zapiszNaSerwerze(); }
+        window.pobierzChallengeRekordy = () => window.appData.challenge_records || [];
+        window.zapiszChallengeRekordy = async (cr) => { window.appData.challenge_records = cr; await window.zapiszBaze(); };
 
-        function pobierzOczekujaceRekordy() { return db.rfdl_pending_records || []; }
-        async function zapiszOczekujaceRekordy(pr) { db.rfdl_pending_records = pr; await zapiszNaSerwerze(); }
+        window.pobierzOczekujaceRekordy = () => window.appData.pending_records;
+        window.zapiszOczekujaceRekordy = async (pr) => { window.appData.pending_records = pr; await window.zapiszBaze(); };
 
-        function pobierzOczekujaceChallengeRekordy() { return db.rfdl_pending_challenge_records || []; }
-        async function zapiszOczekujaceChallengeRekordy(pcr) { db.rfdl_pending_challenge_records = pcr; await zapiszNaSerwerze(); }
+        window.pobierzOczekujaceChallengeRekordy = () => window.appData.pending_challenge_records || [];
+        window.zapiszOczekujaceChallengeRekordy = async (pcr) => { window.appData.pending_challenge_records = pcr; await window.zapiszBaze(); };
 
-        function pobierzZalogowanego() { return db.rfdl_current_user || ''; }
-        async function ustawZalogowanego(u) { db.rfdl_current_user = u; await zapiszNaSerwerze(); odswiezMenu(); }
+        window.pobierzZalogowanego = () => window.appData.current_user || '';
+        window.ustawZalogowanego = (u) => { 
+            window.appData.current_user = u; 
+            localStorage.setItem('rfdl_current_user', u); 
+            window.odswiezMenu(); 
+        };
 
-        function czyJestModem(login) {
+        window.czyJestModem = function(login) {
             if (!login) return false;
             return login.trim().toLowerCase() === 'kacperpros45';
         }
 
-        function obliczPunktyZaPoziom(index) {
+        window.obliczPunktyZaPoziom = function(index) {
             const punkty = 250 - (index * 2.5);
             return Math.max(0, Number(punkty.toFixed(1)));
         }
 
-        async function edytujPozycjePoziomu(index, kategoria = 'level') {
+        window.edytujPozycjePoziomu = async function(index, kategoria = 'level') {
             const lista = kategoria === 'challenge' ? pobierzChallenge() : pobierzPoziomy();
             const nazwaListy = kategoria === 'challenge' ? 'Challenge List' : 'Demon List';
             const nowaPozycja = prompt(`Aktualna pozycja w ${nazwaListy}: ${index + 1}. Podaj nową pozycję (1-${lista.length}):`);
@@ -163,9 +489,10 @@
             zmienStrone('panel_moda');
         }
 
-        function odswiezMenu() {
+        window.odswiezMenu = function() {
             const zalogowany = pobierzZalogowanego();
             const nav = document.getElementById('nav-menu');
+            if (!nav) return;
             
             let html = `
                 <a onclick="zmienStrone('home')">Strona główna</a>
@@ -198,12 +525,15 @@
             nav.innerHTML = html;
         }
 
-        async function wyloguj() {
-            await ustawZalogowanego('');
+        window.wyloguj = function() {
+            ustawZalogowanego('');
             zmienStrone('home');
         }
 
-        function zmienStrone(typ, extraParam = null) {
+        window.zmienStrone = async function(typ, extraParam = null) {
+            // Zawsze przed renderowaniem odświeżamy dane z chmury, żeby widzieć zmiany innych graczy
+            await pobierzBaze();
+            
             const main = document.getElementById('zawartosc');
             odswiezMenu();
             const zalogowany = pobierzZalogowanego();
@@ -212,13 +542,13 @@
             if (typ === 'home') {
                 main.innerHTML = `
                     <h1>Rynxo Fandom Demon List</h1>
-                    <p>Oficjalny ranking poziomów i wyzwań zsynchronizowany w chmurze! Zgłaszaj poziomy, przechodź je i zdobywaj punkty.</p>
+                    <p>Oficjalny ranking poziomów i wyzwań. Zgłaszaj poziomy do Demon List oraz Challenge List, przechodź je i zdobywaj punkty!</p>
                 `;
             } else if (typ === 'lista') {
                 const aktywnaKategoria = extraParam === 'challenge' ? 'challenge' : 'level';
                 const poziomy = aktywnaKategoria === 'challenge' ? pobierzChallenge() : pobierzPoziomy();
                 
-                let listaHtml = poziomy.length === 0 ? `<p>Brak zatwierdzonych pozycji w tej kategorii.</p>` : '<div class="level-list" style="width:100%">';
+                let listaHtml = poziomy.length === 0 ? `<p>Brak zatwierdzonych pozycji w tej kategorii.</p>` : '<div class="level-list">';
                 
                 poziomy.forEach((lvl, index) => {
                     let modActions = jestModem ? `
@@ -232,7 +562,7 @@
                             <div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
                                 <div style="display: flex; align-items: center;">
                                     <div class="level-pos">#${index + 1}</div>
-                                    <div class="level-info" style="text-align:left;">
+                                    <div class="level-info">
                                         <h3 class="clickable-level" onclick="zmienStrone('szczegoly_poziomu', '${encodeURIComponent(lvl.nazwa)}')">${lvl.nazwa} <span style="font-size:0.8rem; color:#aaa;">(ID: ${lvl.id})</span></h3>
                                         <span>Zweryfikował: ${lvl.autor} | <a href="${lvl.nagranie}" target="_blank">${lvl.nagranie}</a></span>
                                         <span style="color: #2ed573; font-weight: bold; margin-top: 4px;">+${punktyZaLvl} pkt</span>
@@ -268,7 +598,7 @@
                 
                 const ukoczenia = isChallenge ? pobierzChallengeRekordy().filter(r => r.poziom.toLowerCase() === nazwaPoziomu.toLowerCase()) : pobierzRekordy().filter(r => r.poziom.toLowerCase() === nazwaPoziomu.toLowerCase());
 
-                let listaUkonczonychHtml = ukoczenia.length === 0 ? '<p>Nikt jeszcze nie ukończył tego poziomu.</p>' : '<div class="level-list" style="width:100%">';
+                let listaUkonczonychHtml = ukoczenia.length === 0 ? '<p>Nikt jeszcze nie ukończył tego poziomu.</p>' : '<div class="level-list">';
                 
                 ukoczenia.forEach(rec => {
                     let modTag = czyJestModem(rec.gracz) ? '<span class="badge-mod">MOD</span>' : '';
@@ -316,6 +646,8 @@
                 pobierzUzytkownikow().forEach(u => allNames.add(u.login));
                 pobierzRekordy().forEach(r => allNames.add(r.gracz));
                 pobierzChallengeRekordy().forEach(r => allNames.add(r.gracz));
+                pobierzOczekujace().forEach(o => allNames.add(o.autor));
+                pobierzOczekujaceChallenge().forEach(o => allNames.add(o.autor));
                 allNames.add('kacperpros45');
 
                 let punkty = {};
@@ -324,6 +656,7 @@
                 rekordy.forEach(rec => {
                     const idx = listaPoziomow.findIndex(l => l.nazwa.toLowerCase() === rec.poziom.toLowerCase());
                     const pktZaLvl = idx !== -1 ? obliczPunktyZaPoziom(idx) : 0;
+                    
                     if (punkty[rec.gracz] !== undefined) {
                         punkty[rec.gracz] += pktZaLvl;
                     } else {
@@ -335,14 +668,14 @@
                     .map(login => ({ login, punkty: Number(punkty[login].toFixed(1)) }))
                     .sort((a, b) => b.punkty - a.punkty);
 
-                let rankingHtml = ranking.length === 0 ? '<p>Brak graczy w bazie.</p>' : '<div class="level-list" style="width:100%">';
+                let rankingHtml = ranking.length === 0 ? '<p>Brak graczy w bazie.</p>' : '<div class="level-list">';
                 ranking.forEach((gracz, index) => {
                     let modTag = czyJestModem(gracz.login) ? '<span class="badge-mod">MOD</span>' : '';
                     rankingHtml += `
                         <div class="ranking-card" onclick="zmienStrone('profil', '${gracz.login}')">
                             <div style="display: flex; align-items: center; gap: 15px; width: 100%;">
                                 <div class="level-pos">#${index + 1}</div>
-                                <div class="level-info" style="flex: 1; text-align:left;">
+                                <div class="level-info" style="flex: 1;">
                                     <h3>${gracz.login} ${modTag}</h3>
                                     <span>Punkty: ${gracz.punkty} pkt</span>
                                 </div>
@@ -358,7 +691,7 @@
                         <button class="tab-btn ${aktywnaKategoria === 'level' ? 'active' : ''}" onclick="zmienStrone('leaderboard', 'level')">Demon List</button>
                         <button class="tab-btn ${aktywnaKategoria === 'challenge' ? 'active' : ''}" onclick="zmienStrone('leaderboard', 'challenge')">Challenge List</button>
                     </div>
-                    <p>Wybierz kategorię i kliknij na gracza, aby zobaczyć jego profil.</p>
+                    <p>Wybierz kategorię i kliknij na gracza, aby zobaczyć jego profil i szczegółowe statystyki.</p>
                     ${rankingHtml}
                 `;
             } else if (typ === 'profil') {
@@ -405,11 +738,12 @@
 
                 let modTag = czyJestModem(nazwaGracza) ? '<span class="badge-mod">MOD</span>' : '';
 
-                let historiaDemonHtml = graczDemonRec.length === 0 ? '<p>Brak ukończonych poziomów Demon List.</p>' : '<div class="level-list" style="width:100%">';
-                graczDemonRec.forEach((rec) => {
+                let historiaDemonHtml = graczDemonRec.length === 0 ? '<p>Brak ukończonych poziomów Demon List.</p>' : '<div class="level-list">';
+                graczDemonRec.forEach(rec => {
+                    const globalIndex = rekordyDemon.findIndex(r => r.gracz.toLowerCase() === rec.gracz.toLowerCase() && r.poziom.toLowerCase() === rec.poziom.toLowerCase() && r.url === rec.url);
                     const idx = poziomy.findIndex(l => l.nazwa.toLowerCase() === rec.poziom.toLowerCase());
                     let posText = idx !== -1 ? `(#${idx + 1} - +${obliczPunktyZaPoziom(idx)} pkt)` : '';
-                    let usunPrzycisk = jestModem ? `<button class="btn-reject" onclick="usunZatwierdzonyRekordPrzezProfil('${rec.poziom}', '${rec.gracz}', 'level')" style="padding: 6px 12px; font-size: 0.85rem;">Usuń</button>` : '';
+                    let usunPrzycisk = jestModem ? `<button class="btn-reject" onclick="usunZatwierdzonyRekord(${globalIndex}, 'level')" style="padding: 6px 12px; font-size: 0.85rem;">Usuń</button>` : '';
 
                     historiaDemonHtml += `
                         <div class="level-card">
@@ -425,15 +759,18 @@
                 });
                 if (graczDemonRec.length > 0) historiaDemonHtml += '</div>';
 
-                let historiaChallengeHtml = graczChalRec.length === 0 ? '<p>Brak ukończonych poziomów Challenge List.</p>' : '<div class="level-list" style="width:100%">';
-                graczChalRec.forEach((rec) => {
-                    let usunPrzycisk = jestModem ? `<button class="btn-reject" onclick="usunZatwierdzonyRekordPrzezProfil('${rec.poziom}', '${rec.gracz}', 'challenge')" style="padding: 6px 12px; font-size: 0.85rem;">Usuń</button>` : '';
+                let historiaChallengeHtml = graczChalRec.length === 0 ? '<p>Brak ukończonych poziomów Challenge List.</p>' : '<div class="level-list">';
+                graczChalRec.forEach(rec => {
+                    const globalIndex = rekordyChallenge.findIndex(r => r.gracz.toLowerCase() === rec.gracz.toLowerCase() && r.poziom.toLowerCase() === rec.poziom.toLowerCase() && r.url === rec.url);
+                    const idx = challenge.findIndex(c => c.nazwa.toLowerCase() === rec.poziom.toLowerCase());
+                    let posText = idx !== -1 ? `(#${idx + 1} - +${obliczPunktyZaPoziom(idx)} pkt)` : '';
+                    let usunPrzycisk = jestModem ? `<button class="btn-reject" onclick="usunZatwierdzonyRekord(${globalIndex}, 'challenge')" style="padding: 6px 12px; font-size: 0.85rem;">Usuń</button>` : '';
 
                     historiaChallengeHtml += `
                         <div class="level-card">
                             <div class="level-info" style="text-align: left; width: 100%; display: flex; justify-content: space-between; align-items: center;">
                                 <div>
-                                    <h3 class="clickable-level" onclick="zmienStrone('szczegoly_poziomu', '${encodeURIComponent(rec.poziom)}')">${rec.poziom}</h3>
+                                    <h3 class="clickable-level" onclick="zmienStrone('szczegoly_poziomu', '${encodeURIComponent(rec.poziom)}')">${rec.poziom} ${posText}</h3>
                                     <span><a href="${rec.url}" target="_blank">${rec.url}</a></span>
                                 </div>
                                 <div>${usunPrzycisk}</div>
@@ -469,10 +806,13 @@
                             </div>
                         </div>
                     </div>
+                    
                     <h3 style="color:#fff; text-align:left; width:100%; margin-top:10px;">Ukończone (Demon List):</h3>
                     ${historiaDemonHtml}
+
                     <h3 style="color:#fff; text-align:left; width:100%; margin-top:20px;">Ukończone (Challenge List):</h3>
                     ${historiaChallengeHtml}
+
                     <button onclick="zmienStrone('leaderboard')" style="margin-top:25px; width:100%;">Powrót do Leaderboardu</button>
                 `;
             } else if (typ === 'login') {
@@ -496,120 +836,287 @@
                     </div>
                 `;
             } else if (typ === 'dodaj') {
-                if (!zalogowany) { zmienStrone('login'); return; }
+                if (!zalogowany) {
+                    zmienStrone('login');
+                    return;
+                }
                 main.innerHTML = `
                     <h1>Zgłoś poziom</h1>
+                    <p style="font-size:0.9rem;">Wypełnij dane zgłoszenia i wybierz kategorię listy.</p>
                     <div class="form-box">
-                        <select id="lvl-kategoria"><option value="level">Demon List</option><option value="challenge">Challenge List</option></select>
+                        <select id="lvl-kategoria">
+                            <option value="level">Demon List</option>
+                            <option value="challenge">Challenge List</option>
+                        </select>
                         <input type="text" id="lvl-name" placeholder="Nazwa poziomu">
                         <input type="text" id="lvl-id" placeholder="ID poziomu">
                         <input type="text" id="lvl-nagranie" placeholder="Link do nagrania z weryfikacji (URL)">
-                        <input type="number" id="lvl-pozycja" placeholder="Proponowana pozycja">
+                        <input type="number" id="lvl-pozycja" placeholder="Proponowana pozycja na liście">
                         <div id="lvl-error" class="error-msg"></div>
                         <button onclick="wyslijZgłoszenie()">Wyślij zgłoszenie</button>
                     </div>
                 `;
             } else if (typ === 'zglos_rekord') {
-                if (!zalogowany) { zmienStrone('login'); return; }
+                if (!zalogowany) {
+                    zmienStrone('login');
+                    return;
+                }
+                
                 main.innerHTML = `
                     <h1>Zgłoś rekord</h1>
+                    <p style="font-size:0.9rem;">Przeszukałeś poziom lub wyzwanie? Prześlij dowód ukończenia!</p>
                     <div class="form-box">
                         <select id="rec-kategoria" onchange="aktualizujListePoziomowRekordu()">
                             <option value="level">Demon List</option>
                             <option value="challenge">Challenge List</option>
                         </select>
-                        <select id="rec-level"><option value="">Wybierz poziom...</option></select>
-                        <input type="text" id="rec-url" placeholder="Link do dowodu (URL)">
+                        <select id="rec-level">
+                            <option value="">Wybierz poziom...</option>
+                        </select>
+                        <input type="text" id="rec-url" placeholder="Link do dowodu / nagrania (URL)">
                         <div id="rec-error" class="error-msg"></div>
                         <button onclick="wyslijRekord()">Wyślij rekord</button>
                     </div>
                 `;
                 aktualizujListePoziomowRekordu();
             } else if (typ === 'panel_moda') {
-                if (!jestModem) { zmienStrone('home'); return; }
+                if (!jestModem) {
+                    zmienStrone('home');
+                    return;
+                }
                 const oczekujace = pobierzOczekujace();
                 const oczekujaceChallenge = pobierzOczekujaceChallenge();
                 const oczekujaceRekordy = pobierzOczekujaceRekordy();
                 const oczekujaceChallengeRekordy = pobierzOczekujaceChallengeRekordy();
+                
                 const zatwierdzonePoziomy = pobierzPoziomy();
                 const zatwierdzoneChallenge = pobierzChallenge();
+                const zatwierdzoneRekordy = pobierzRekordy();
+                const zatwierdzoneChallengeRekordy = pobierzChallengeRekordy();
 
-                let pendingHtml = oczekujace.length === 0 ? '<p>Brak oczekujących zgłoszeń Demon.</p>' : '<div class="level-list" style="width:100%">';
+                let pendingHtml = oczekujace.length === 0 ? '<p>Brak oczekujących zgłoszeń Demon List.</p>' : '<div class="level-list">';
                 oczekujace.forEach((lvl, index) => {
-                    pendingHtml += `<div class="level-card"><div class="level-info" style="text-align:left;"><h3>${lvl.nazwa}</h3><span>Poz: #${lvl.pozycja} | Autor: ${lvl.autor}</span></div><div style="display:flex; gap:10px;"><button class="btn-accept" onclick="akceptujZgłoszenie(${index}, 'level')">Akceptuj</button><button class="btn-reject" onclick="odrzucZgłoszenie(${index}, 'level')">Odrzuć</button></div></div>`;
+                    pendingHtml += `
+                        <div class="level-card">
+                            <div class="level-info" style="text-align: left;">
+                                <h3>${lvl.nazwa}</h3>
+                                <span>Proponowana pozycja: #${lvl.pozycja} | Zweryfikował: ${lvl.autor}</span>
+                                <a href="${lvl.nagranie}" target="_blank">${lvl.nagranie}</a>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn-accept" onclick="akceptujZgłoszenie(${index}, 'level')">Akceptuj</button>
+                                <button class="btn-reject" onclick="odrzucZgłoszenie(${index}, 'level')">Odrzuć</button>
+                            </div>
+                        </div>
+                    `;
                 });
                 if (oczekujace.length > 0) pendingHtml += '</div>';
 
-                let pendingChalHtml = oczekujaceChallenge.length === 0 ? '<p>Brak oczekujących zgłoszeń Challenge.</p>' : '<div class="level-list" style="width:100%">';
+                let pendingChalHtml = oczekujaceChallenge.length === 0 ? '<p>Brak oczekujących zgłoszeń Challenge List.</p>' : '<div class="level-list">';
                 oczekujaceChallenge.forEach((lvl, index) => {
-                    pendingChalHtml += `<div class="level-card"><div class="level-info" style="text-align:left;"><h3>${lvl.nazwa}</h3><span>Poz: #${lvl.pozycja} | Autor: ${lvl.autor}</span></div><div style="display:flex; gap:10px;"><button class="btn-accept" onclick="akceptujZgłoszenie(${index}, 'challenge')">Akceptuj</button><button class="btn-reject" onclick="odrzucZgłoszenie(${index}, 'challenge')">Odrzuć</button></div></div>`;
+                    pendingChalHtml += `
+                        <div class="level-card">
+                            <div class="level-info" style="text-align: left;">
+                                <h3>${lvl.nazwa}</h3>
+                                <span>Proponowana pozycja: #${lvl.pozycja} | Zweryfikował: ${lvl.autor}</span>
+                                <a href="${lvl.nagranie}" target="_blank">${lvl.nagranie}</a>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn-accept" onclick="akceptujZgłoszenie(${index}, 'challenge')">Akceptuj</button>
+                                <button class="btn-reject" onclick="odrzucZgłoszenie(${index}, 'challenge')">Odrzuć</button>
+                            </div>
+                        </div>
+                    `;
                 });
                 if (oczekujaceChallenge.length > 0) pendingChalHtml += '</div>';
 
-                let pendingRecHtml = oczekujaceRekordy.length === 0 ? '<p>Brak oczekujących rekordów Demon.</p>' : '<div class="level-list" style="width:100%">';
+                let pendingRecHtml = oczekujaceRekordy.length === 0 ? '<p>Brak oczekujących rekordów (Demon List).</p>' : '<div class="level-list">';
                 oczekujaceRekordy.forEach((rec, index) => {
-                    pendingRecHtml += `<div class="level-card"><div class="level-info" style="text-align:left;"><h3>${rec.poziom}</h3><span>Gracz: ${rec.gracz}</span></div><div style="display:flex; gap:10px;"><button class="btn-accept" onclick="akceptujRekord(${index}, 'level')">Akceptuj</button><button class="btn-reject" onclick="odrzucRekord(${index}, 'level')">Odrzuć</button></div></div>`;
+                    pendingRecHtml += `
+                        <div class="level-card">
+                            <div class="level-info" style="text-align: left;">
+                                <h3>[Demon] Poziom: ${rec.poziom}</h3>
+                                <span>Gracz: ${rec.gracz} | <a href="${rec.url}" target="_blank">${rec.url}</a></span>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn-accept" onclick="akceptujRekord(${index}, 'level')">Akceptuj</button>
+                                <button class="btn-reject" onclick="odrzucRekord(${index}, 'level')">Odrzuć</button>
+                            </div>
+                        </div>
+                    `;
                 });
                 if (oczekujaceRekordy.length > 0) pendingRecHtml += '</div>';
 
-                let pendingChalRecHtml = oczekujaceChallengeRekordy.length === 0 ? '<p>Brak oczekujących rekordów Challenge.</p>' : '<div class="level-list" style="width:100%">';
+                let pendingChalRecHtml = oczekujaceChallengeRekordy.length === 0 ? '<p>Brak oczekujących rekordów (Challenge List).</p>' : '<div class="level-list">';
                 oczekujaceChallengeRekordy.forEach((rec, index) => {
-                    pendingChalRecHtml += `<div class="level-card"><div class="level-info" style="text-align:left;"><h3>${rec.poziom}</h3><span>Gracz: ${rec.gracz}</span></div><div style="display:flex; gap:10px;"><button class="btn-accept" onclick="akceptujRekord(${index}, 'challenge')">Akceptuj</button><button class="btn-reject" onclick="odrzucRekord(${index}, 'challenge')">Odrzuć</button></div></div>`;
+                    pendingChalRecHtml += `
+                        <div class="level-card">
+                            <div class="level-info" style="text-align: left;">
+                                <h3>[Challenge] Poziom: ${rec.poziom}</h3>
+                                <span>Gracz: ${rec.gracz} | <a href="${rec.url}" target="_blank">${rec.url}</a></span>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn-accept" onclick="akceptujRekord(${index}, 'challenge')">Akceptuj</button>
+                                <button class="btn-reject" onclick="odrzucRekord(${index}, 'challenge')">Odrzuć</button>
+                            </div>
+                        </div>
+                    `;
                 });
                 if (oczekujaceChallengeRekordy.length > 0) pendingChalRecHtml += '</div>';
 
-                let activeLevelsHtml = zatwierdzonePoziomy.length === 0 ? '<p>Brak poziomów.</p>' : '<div class="level-list" style="width:100%">';
+                let activeLevelsHtml = zatwierdzonePoziomy.length === 0 ? '<p>Brak poziomów na Demon List.</p>' : '<div class="level-list">';
                 zatwierdzonePoziomy.forEach((lvl, index) => {
-                    activeLevelsHtml += `<div class="level-card"><div class="level-info" style="text-align:left;"><h3>#${index + 1} - ${lvl.nazwa}</h3></div><div style="display:flex; gap:10px;"><button class="btn-accept" onclick="edytujPozycjePoziomu(${index}, 'level')">Edytuj poz.</button><button class="btn-reject" onclick="usunZatwierdzonyPoziom(${index}, 'level')">Usuń</button></div></div>`;
+                    const pktVal = obliczPunktyZaPoziom(index);
+                    activeLevelsHtml += `
+                        <div class="level-card">
+                            <div class="level-info" style="text-align: left;">
+                                <h3>#${index + 1} - ${lvl.nazwa} (ID: ${lvl.id}) — <strong>+${pktVal} pkt</strong></h3>
+                                <span style="font-size:0.8rem; color:#888;">Zweryfikował: ${lvl.autor}</span>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn-accept" onclick="edytujPozycjePoziomu(${index}, 'level')" style="padding: 8px 12px; font-size: 0.9rem;">Edytuj poz.</button>
+                                <button class="btn-reject" onclick="usunZatwierdzonyPoziom(${index}, 'level')" style="padding: 8px 12px; font-size: 0.9rem;">Usuń</button>
+                            </div>
+                        </div>
+                    `;
                 });
                 if (zatwierdzonePoziomy.length > 0) activeLevelsHtml += '</div>';
 
+                let activeChalHtml = zatwierdzoneChallenge.length === 0 ? '<p>Brak wyzwań na Challenge List.</p>' : '<div class="level-list">';
+                zatwierdzoneChallenge.forEach((lvl, index) => {
+                    const pktVal = obliczPunktyZaPoziom(index);
+                    activeChalHtml += `
+                        <div class="level-card">
+                            <div class="level-info" style="text-align: left;">
+                                <h3>#${index + 1} - ${lvl.nazwa} (ID: ${lvl.id}) — <strong>+${pktVal} pkt</strong></h3>
+                                <span style="font-size:0.8rem; color:#888;">Zweryfikował: ${lvl.autor}</span>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn-accept" onclick="edytujPozycjePoziomu(${index}, 'challenge')" style="padding: 8px 12px; font-size: 0.9rem;">Edytuj poz.</button>
+                                <button class="btn-reject" onclick="usunZatwierdzonyPoziom(${index}, 'challenge')" style="padding: 8px 12px; font-size: 0.9rem;">Usuń</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                if (zatwierdzoneChallenge.length > 0) activeChalHtml += '</div>';
+
+                let activeRecordsHtml = zatwierdzoneRekordy.length === 0 ? '<p>Brak zatwierdzonych rekordów Demon.</p>' : '<div class="level-list">';
+                zatwierdzoneRekordy.forEach((rec, index) => {
+                    activeRecordsHtml += `
+                        <div class="level-card">
+                            <div class="level-info" style="text-align: left;">
+                                <h3>Gracz: ${rec.gracz}</h3>
+                                <span>Poziom: ${rec.poziom} (Demon List)</span>
+                            </div>
+                            <div>
+                                <button class="btn-reject" onclick="usunZatwierdzonyRekord(${index}, 'level')">Usuń</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                if (zatwierdzoneRekordy.length > 0) activeRecordsHtml += '</div>';
+
+                let activeChalRecordsHtml = zatwierdzoneChallengeRekordy.length === 0 ? '<p>Brak zatwierdzonych rekordów Challenge.</p>' : '<div class="level-list">';
+                zatwierdzoneChallengeRekordy.forEach((rec, index) => {
+                    activeChalRecordsHtml += `
+                        <div class="level-card">
+                            <div class="level-info" style="text-align: left;">
+                                <h3>Gracz: ${rec.gracz}</h3>
+                                <span>Poziom: ${rec.poziom} (Challenge List)</span>
+                            </div>
+                            <div>
+                                <button class="btn-reject" onclick="usunZatwierdzonyRekord(${index}, 'challenge')">Usuń</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                if (zatwierdzoneChallengeRekordy.length > 0) activeChalRecordsHtml += '</div>';
+
                 main.innerHTML = `
                     <h1>Panel Moderatora</h1>
-                    <h3 style="margin-top:20px; color:#fff; text-align:left; width:100%;">Oczekujące poziomy (Demon):</h3>${pendingHtml}
-                    <h3 style="margin-top:20px; color:#fff; text-align:left; width:100%;">Oczekujące poziomy (Challenge):</h3>${pendingChalHtml}
-                    <h3 style="margin-top:20px; color:#fff; text-align:left; width:100%;">Oczekujące rekordy (Demon):</h3>${pendingRecHtml}
-                    <h3 style="margin-top:20px; color:#fff; text-align:left; width:100%;">Oczekujące rekordy (Challenge):</h3>${pendingChalRecHtml}
-                    <h3 style="margin-top:30px; color:#ff4757; text-align:left; width:100%;">Zarządzaj Demon List:</h3>${activeLevelsHtml}
+                    <p>Zarządzaj nadesłanymi oraz już opublikowanymi poziomami i rekordami.</p>
+                    
+                    <h3 style="margin-top:20px; color:#fff; text-align:left; width:100%;">Oczekujące poziomy (Demon List):</h3>
+                    ${pendingHtml}
+                    
+                    <h3 style="margin-top:20px; color:#fff; text-align:left; width:100%;">Oczekujące poziomy (Challenge List):</h3>
+                    ${pendingChalHtml}
+                    
+                    <h3 style="margin-top:30px; color:#fff; text-align:left; width:100%;">Oczekujące rekordy (Demon List):</h3>
+                    ${pendingRecHtml}
+
+                    <h3 style="margin-top:20px; color:#fff; text-align:left; width:100%;">Oczekujące rekordy (Challenge List):</h3>
+                    ${pendingChalRecHtml}
+
+                    <h3 style="margin-top:40px; color:#ff4757; text-align:left; width:100%;">Zarządzaj Demon List:</h3>
+                    ${activeLevelsHtml}
+
+                    <h3 style="margin-top:30px; color:#ff4757; text-align:left; width:100%;">Zarządzaj Challenge List:</h3>
+                    ${activeChalHtml}
+
+                    <h3 style="margin-top:30px; color:#ff4757; text-align:left; width:100%;">Zarządzaj rekordami Demon List:</h3>
+                    ${activeRecordsHtml}
+
+                    <h3 style="margin-top:30px; color:#ff4757; text-align:left; width:100%;">Zarządzaj rekordami Challenge List:</h3>
+                    ${activeChalRecordsHtml}
                 `;
             }
         }
 
-        function aktualizujListePoziomowRekordu() {
+        window.aktualizujListePoziomowRekordu = function() {
             const kategoria = document.getElementById('rec-kategoria').value;
             const selectPoziom = document.getElementById('rec-level');
             if (!selectPoziom) return;
+
             const poziomy = kategoria === 'challenge' ? pobierzChallenge() : pobierzPoziomy();
+            
             let opcje = '<option value="">Wybierz poziom...</option>';
-            poziomy.forEach(lvl => { opcje += `<option value="${lvl.nazwa}">${lvl.nazwa}</option>`; });
+            poziomy.forEach(lvl => {
+                opcje += `<option value="${lvl.nazwa}">${lvl.nazwa} (ID: ${lvl.id})</option>`;
+            });
             selectPoziom.innerHTML = opcje;
         }
 
-        async function zarejestruj() {
+        window.zarejestruj = async function() {
             const login = document.getElementById('reg-login').value.trim();
             const pass = document.getElementById('reg-pass').value.trim();
             const err = document.getElementById('reg-error');
-            if (!login || !pass) { err.innerText = "Wypełnij pola!"; return; }
+
+            if (!login || !pass) {
+                err.innerText = "Wypełnij wszystkie pola!";
+                return;
+            }
+
             let users = pobierzUzytkownikow();
-            if (users.some(u => u.login.toLowerCase() === login.toLowerCase())) { err.innerText = "Użytkownik istnieje!"; return; }
+            if (users.some(u => u.login.toLowerCase() === login.toLowerCase())) {
+                err.innerText = "Taki użytkownik już istnieje!";
+                return;
+            }
+
             users.push({ login, pass });
             await zapiszUzytkownikow(users);
-            await ustawZalogowanego(login);
+            ustawZalogowanego(login);
             zmienStrone('home');
         }
 
-        async function zaloguj() {
+        window.zaloguj = function() {
             const login = document.getElementById('log-login').value.trim();
             const pass = document.getElementById('log-pass').value.trim();
             const err = document.getElementById('log-error');
+
             let users = pobierzUzytkownikow();
             const user = users.find(u => u.login.toLowerCase() === login.toLowerCase() && u.pass === pass);
-            if (!user && login.toLowerCase() !== 'kacperpros45') { err.innerText = "Błędny login lub hasło!"; return; }
-            await ustawZalogowanego(login);
+
+            if (!user && login.toLowerCase() !== 'kacperpros45') {
+                err.innerText = "Niepoprawny login lub hasło!";
+                return;
+            }
+
+            ustawZalogowanego(login);
             zmienStrone('home');
         }
 
-        async function wyslijZgłoszenie() {
+        window.wyslijZgłoszenie = async function() {
             const kategoria = document.getElementById('lvl-kategoria').value;
             const nazwa = document.getElementById('lvl-name').value.trim();
             const id = document.getElementById('lvl-id').value.trim();
@@ -617,118 +1124,227 @@
             const pozycja = parseInt(document.getElementById('lvl-pozycja').value);
             const err = document.getElementById('lvl-error');
             const autor = pobierzZalogowanego();
-            if (!nazwa || !id || !nagranie || isNaN(pozycja)) { err.innerText = "Uzupełnij pola!"; return; }
-            if (kategoria === 'challenge') {
-                let p = pobierzOczekujaceChallenge(); p.push({ nazwa, id, nagranie, pozycja, autor }); await zapiszOczekujaceChallenge(p);
-            } else {
-                let p = pobierzOczekujace(); p.push({ nazwa, id, nagranie, pozycja, autor }); await zapiszOczekujace(p);
+
+            if (!nazwa || !id || !nagranie || isNaN(pozycja)) {
+                err.innerText = "Wypełnij wszystkie pola poprawnie!";
+                return;
             }
-            alert("Wysłano zgłoszenie!");
+
+            if (kategoria === 'challenge') {
+                let oczekujace = pobierzOczekujaceChallenge();
+                oczekujace.push({ nazwa, id, nagranie, pozycja, autor });
+                await zapiszOczekujaceChallenge(oczekujace);
+            } else {
+                let oczekujace = pobierzOczekujace();
+                oczekujace.push({ nazwa, id, nagranie, pozycja, autor });
+                await zapiszOczekujace(oczekujace);
+            }
+            
+            alert("Zgłoszenie poziomu zostało wysłane do akceptacji!");
             zmienStrone('lista', kategoria);
         }
 
-        async function wyslijRekord() {
+        window.wyslijRekord = async function() {
             const kategoria = document.getElementById('rec-kategoria').value;
             const poziom = document.getElementById('rec-level').value;
             const url = document.getElementById('rec-url').value.trim();
             const err = document.getElementById('rec-error');
             const gracz = pobierzZalogowanego();
-            if (!poziom || !url) { err.innerText = "Wybierz poziom i podaj URL!"; return; }
-            if (kategoria === 'challenge') {
-                let r = pobierzOczekujaceChallengeRekordy(); r.push({ poziom, url, gracz }); await zapiszOczekujaceChallengeRekordy(r);
-            } else {
-                let r = pobierzOczekujaceRekordy(); r.push({ poziom, url, gracz }); await zapiszOczekujaceRekordy(r);
+
+            if (!poziom || !url) {
+                err.innerText = "Wypełnij wszystkie pola, w tym wybierz poziom!";
+                return;
             }
-            alert("Wysłano rekord!");
+
+            if (kategoria === 'challenge') {
+                let oczekujace = pobierzOczekujaceChallengeRekordy();
+                oczekujace.push({ poziom, url, gracz });
+                await zapiszOczekujaceChallengeRekordy(oczekujace);
+            } else {
+                let oczekujace = pobierzOczekujaceRekordy();
+                oczekujace.push({ poziom, url, gracz });
+                await zapiszOczekujaceRekordy(oczekujace);
+            }
+
+            alert("Zgłoszenie rekordu zostało wysłane do akceptacji!");
             zmienStrone('leaderboard', kategoria);
         }
 
-        async function akceptujZgłoszenie(index, kategoria = 'level') {
+        window.akceptujZgłoszenie = async function(index, kategoria = 'level') {
             if (kategoria === 'challenge') {
-                let o = pobierzOczekujaceChallenge(); let l = pobierzChallenge(); let r = pobierzChallengeRekordy();
-                let zatwierdzony = o.splice(index, 1)[0];
-                l.splice(zatwierdzony.pozycja - 1, 0, zatwierdzony);
-                r.push({ poziom: zatwierdzony.nazwa, url: zatwierdzony.nagranie, gracz: zatwierdzony.autor });
-                await zapiszOczekujaceChallenge(o); await zapiszChallenge(l); await zapiszChallengeRekordy(r);
-            } else {
-                let o = pobierzOczekujace(); let l = pobierzPoziomy(); let r = pobierzRekordy();
-                let zatwierdzony = o.splice(index, 1)[0];
-                l.splice(zatwierdzony.pozycja - 1, 0, zatwierdzony);
-                r.push({ poziom: zatwierdzony.nazwa, url: zatwierdzony.nagranie, gracz: zatwierdzony.autor });
-                await zapiszOczekujace(o); await zapiszPoziomy(l); await zapiszRekordy(r);
-            }
-            zmienStrone('panel_moda');
-        }
+                let oczekujace = pobierzOczekujaceChallenge();
+                let lista = pobierzChallenge();
+                let rekordy = pobierzChallengeRekordy();
 
-        async function odrzucZgłoszenie(index, kategoria = 'level') {
-            if (kategoria === 'challenge') {
-                let o = pobierzOczekujaceChallenge(); o.splice(index, 1); await zapiszOczekujaceChallenge(o);
-            } else {
-                let o = pobierzOczekujace(); o.splice(index, 1); await zapiszOczekujace(o);
-            }
-            zmienStrone('panel_moda');
-        }
-
-        async function akceptujRekord(index, kategoria = 'level') {
-            if (kategoria === 'challenge') {
-                let o = pobierzOczekujaceChallengeRekordy(); let r = pobierzChallengeRekordy();
-                r.push(o.splice(index, 1)[0]);
-                await zapiszOczekujaceChallengeRekordy(o); await zapiszChallengeRekordy(r);
-            } else {
-                let o = pobierzOczekujaceRekordy(); let r = pobierzRekordy();
-                r.push(o.splice(index, 1)[0]);
-                await zapiszOczekujaceRekordy(o); await zapiszRekordy(r);
-            }
-            zmienStrone('panel_moda');
-        }
-
-        async function odrzucRekord(index, kategoria = 'level') {
-            if (kategoria === 'challenge') {
-                let o = pobierzOczekujaceChallengeRekordy(); o.splice(index, 1); await zapiszOczekujaceChallengeRekordy(o);
-            } else {
-                let o = pobierzOczekujaceRekordy(); o.splice(index, 1); await zapiszOczekujaceRekordy(o);
-            }
-            zmienStrone('panel_moda');
-        }
-
-        async function usunZatwierdzonyPoziom(index, kategoria = 'level') {
-            if (confirm("Usunąć poziom?")) {
-                if (kategoria === 'challenge') {
-                    let l = pobierzChallenge(); l.splice(index, 1); await zapiszChallenge(l);
+                let zatwierdzony = oczekujace.splice(index, 1)[0];
+                let docelowaPozycja = zatwierdzony.pozycja - 1;
+                if (docelowaPozycja < 0) docelowaPozycja = 0;
+                if (docelowaPozycja > lista.length) {
+                    lista.push(zatwierdzony);
                 } else {
-                    let l = pobierzPoziomy(); l.splice(index, 1); await zapiszPoziomy(l);
+                    lista.splice(docelowaPozycja, 0, zatwierdzony);
+                }
+
+                rekordy.push({
+                    poziom: zatwierdzony.nazwa,
+                    url: zatwierdzony.nagranie,
+                    gracz: zatwierdzony.autor
+                });
+
+                await zapiszOczekujaceChallenge(oczekujace);
+                await zapiszChallenge(lista);
+                await zapiszChallengeRekordy(rekordy);
+            } else {
+                let oczekujace = pobierzOczekujace();
+                let lista = pobierzPoziomy();
+                let rekordy = pobierzRekordy();
+
+                let zatwierdzony = oczekujace.splice(index, 1)[0];
+                let docelowaPozycja = zatwierdzony.pozycja - 1;
+                if (docelowaPozycja < 0) docelowaPozycja = 0;
+                if (docelowaPozycja > lista.length) {
+                    lista.push(zatwierdzony);
+                } else {
+                    lista.splice(docelowaPozycja, 0, zatwierdzony);
+                }
+
+                rekordy.push({
+                    poziom: zatwierdzony.nazwa,
+                    url: zatwierdzony.nagranie,
+                    gracz: zatwierdzony.autor
+                });
+
+                await zapiszOczekujace(oczekujace);
+                await zapiszPoziomy(lista);
+                await zapiszRekordy(rekordy);
+            }
+            zmienStrone('panel_moda');
+        }
+
+        window.odrzucZgłoszenie = async function(index, kategoria = 'level') {
+            if (kategoria === 'challenge') {
+                let oczekujace = pobierzOczekujaceChallenge();
+                oczekujace.splice(index, 1);
+                await zapiszOczekujaceChallenge(oczekujace);
+            } else {
+                let oczekujace = pobierzOczekujace();
+                oczekujace.splice(index, 1);
+                await zapiszOczekujace(oczekujace);
+            }
+            zmienStrone('panel_moda');
+        }
+
+        window.akceptujRekord = async function(index, kategoria = 'level') {
+            if (kategoria === 'challenge') {
+                let oczekujace = pobierzOczekujaceChallengeRekordy();
+                let rekordy = pobierzChallengeRekordy();
+
+                let zatwierdzonyRec = oczekujace.splice(index, 1)[0];
+                rekordy.push(zatwierdzonyRec);
+
+                await zapiszOczekujaceChallengeRekordy(oczekujace);
+                await zapiszChallengeRekordy(rekordy);
+            } else {
+                let oczekujace = pobierzOczekujaceRekordy();
+                let rekordy = pobierzRekordy();
+
+                let zatwierdzonyRec = oczekujace.splice(index, 1)[0];
+                rekordy.push(zatwierdzonyRec);
+
+                await zapiszOczekujaceRekordy(oczekujace);
+                await zapiszRekordy(rekordy);
+            }
+            zmienStrone('panel_moda');
+        }
+
+        window.odrzucRekord = async function(index, kategoria = 'level') {
+            if (kategoria === 'challenge') {
+                let oczekujace = pobierzOczekujaceChallengeRekordy();
+                oczekujace.splice(index, 1);
+                await zapiszOczekujaceChallengeRekordy(oczekujace);
+            } else {
+                let oczekujace = pobierzOczekujaceRekordy();
+                oczekujace.splice(index, 1);
+                await zapiszOczekujaceRekordy(oczekujace);
+            }
+            zmienStrone('panel_moda');
+        }
+
+        window.usunZatwierdzonyPoziom = async function(index, kategoria = 'level') {
+            if (confirm("Czy na pewno chcesz usunąć ten poziom z listy? Usunięcie usunie również wszystkie rekordy ukończenia tego poziomu.")) {
+                if (kategoria === 'challenge') {
+                    let lista = pobierzChallenge();
+                    let usunietyLvl = lista.splice(index, 1)[0];
+                    await zapiszChallenge(lista);
+
+                    if (usunietyLvl) {
+                        let rekordy = pobierzChallengeRekordy();
+                        let noweRekordy = rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase());
+                        await zapiszChallengeRekordy(noweRekordy);
+                    }
+                } else {
+                    let lista = pobierzPoziomy();
+                    let usunietyLvl = lista.splice(index, 1)[0];
+                    await zapiszPoziomy(lista);
+
+                    if (usunietyLvl) {
+                        let rekordy = pobierzRekordy();
+                        let noweRekordy = rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase());
+                        await zapiszRekordy(noweRekordy);
+                    }
                 }
                 zmienStrone('panel_moda');
             }
         }
 
-        async function usunZatwierdzonyPoziomLista(index, kategoria = 'level') {
-            if (confirm("Usunąć poziom?")) {
+        window.usunZatwierdzonyPoziomLista = async function(index, kategoria = 'level') {
+            if (confirm("Czy na pewno chcesz usunąć ten poziom z listy? Usunięcie usunie również wszystkie rekordy ukończenia tego poziomu.")) {
                 if (kategoria === 'challenge') {
-                    let l = pobierzChallenge(); l.splice(index, 1); await zapiszChallenge(l);
+                    let lista = pobierzChallenge();
+                    let usunietyLvl = lista.splice(index, 1)[0];
+                    await zapiszChallenge(lista);
+
+                    if (usunietyLvl) {
+                        let rekordy = pobierzChallengeRekordy();
+                        let noweRekordy = rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase());
+                        await zapiszChallengeRekordy(noweRekordy);
+                    }
                 } else {
-                    let l = pobierzPoziomy(); l.splice(index, 1); await zapiszPoziomy(l);
+                    let lista = pobierzPoziomy();
+                    let usunietyLvl = lista.splice(index, 1)[0];
+                    await zapiszPoziomy(lista);
+
+                    if (usunietyLvl) {
+                        let rekordy = pobierzRekordy();
+                        let noweRekordy = rekordy.filter(r => r.poziom.toLowerCase() !== usunietyLvl.nazwa.toLowerCase());
+                        await zapiszRekordy(noweRekordy);
+                    }
                 }
                 zmienStrone('lista', kategoria);
             }
         }
 
-        async function usunZatwierdzonyRekordPrzezProfil(poziomNazwa, graczNazwa, kategoria = 'level') {
-            if (confirm("Usunąć ten rekord?")) {
+        window.usunZatwierdzonyRekord = async function(index, kategoria = 'level') {
+            if (confirm("Czy na pewno chcesz usunąć ten rekord?")) {
                 if (kategoria === 'challenge') {
-                    let r = pobierzChallengeRekordy();
-                    let idx = r.findIndex(x => x.poziom.toLowerCase() === poziomNazwa.toLowerCase() && x.gracz.toLowerCase() === graczNazwa.toLowerCase());
-                    if (idx !== -1) { r.splice(idx, 1); await zapiszChallengeRekordy(r); }
+                    let rekordy = pobierzChallengeRekordy();
+                    rekordy.splice(index, 1);
+                    await zapiszChallengeRekordy(rekordy);
                 } else {
-                    let r = pobierzRekordy();
-                    let idx = r.findIndex(x => x.poziom.toLowerCase() === poziomNazwa.toLowerCase() && x.gracz.toLowerCase() === graczNazwa.toLowerCase());
-                    if (idx !== -1) { r.splice(idx, 1); await zapiszRekordy(r); }
+                    let rekordy = pobierzRekordy();
+                    rekordy.splice(index, 1);
+                    await zapiszRekordy(rekordy);
                 }
-                zmienStrone('profil', graczNazwa);
+                zmienStrone('panel_moda');
             }
         }
 
-        wczytajDaneZServera();
+        // Start aplikacji: pobranie danych i uruchomienie strony głównej
+        (async function() {
+            await pobierzBaze();
+            odswiezMenu();
+            zmienStrone('home');
+        })();
     </script>
 </body>
 </html>
