@@ -359,6 +359,9 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
+        // Automatyczne wylogowanie przy każdym wejściu/odświeżeniu strony
+        localStorage.removeItem('rfdl_current_user');
+
         window.appData = {
             users: [],
             levels: [],
@@ -369,7 +372,7 @@
             challenge_records: [],
             pending_records: [],
             pending_challenge_records: [],
-            current_user: localStorage.getItem('rfdl_current_user') || ''
+            current_user: ''
         };
 
         window.pobierzBaze = async function() {
@@ -440,7 +443,11 @@
         window.pobierzZalogowanego = () => window.appData.current_user || '';
         window.ustawZalogowanego = (u) => { 
             window.appData.current_user = u; 
-            localStorage.setItem('rfdl_current_user', u); 
+            if (u) {
+                localStorage.setItem('rfdl_current_user', u);
+            } else {
+                localStorage.removeItem('rfdl_current_user');
+            }
             window.odswiezMenu(); 
         };
 
