@@ -1094,12 +1094,12 @@
             let users = pobierzUzytkownikow();
             const user = users.find(u => u.login.toLowerCase() === login.toLowerCase() && u.pass === pass);
 
-            if (!user && login.toLowerCase() !== 'kacperpros45') {
+            if (!user) {
                 err.innerText = "Niepoprawny login lub hasło!";
                 return;
             }
 
-            ustawZalogowanego(login);
+            ustawZalogowanego(user.login);
             zmienStrone('home');
         };
 
