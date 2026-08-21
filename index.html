@@ -466,7 +466,6 @@
             const idx = window.appData.moderators.findIndex(m => m.toLowerCase() === login.toLowerCase());
             
             if (idx !== -1) {
-                // Nie pozwalaj usunąć głównego moda 'kacperpros45'
                 if (login.toLowerCase() === 'kacperpros45') {
                     alert("Nie można odbierać uprawnień głównego moderatora!");
                     return;
@@ -491,12 +490,10 @@
                 users = users.filter(u => u.login.toLowerCase() !== login.toLowerCase());
                 await zapiszUzytkownikow(users);
 
-                // Usuń też z moderatorów jeśli miał
                 if (window.appData.moderators) {
                     window.appData.moderators = window.appData.moderators.filter(m => m.toLowerCase() !== login.toLowerCase());
                 }
 
-                // Usuń rekordy gracza
                 let recs = pobierzRekordy().filter(r => r.gracz.toLowerCase() !== login.toLowerCase());
                 await zapiszRekordy(recs);
 
@@ -1019,26 +1016,6 @@
                 });
                 if (oczekujaceChallengeRekordy.length > 0) pendingChalRecHtml += '</div>';
 
-                let activeUsersHtml = zarejestrowaniUzytkownicy.length === 0 ? '<p>Brak użytkowników w bazie.</p>' : '<div class="level-list">';
-                zarejestrowaniUzytkownicy.forEach((usr) => {
-                    const isModNow = czyJestModem(usr.login);
-                    const modBtnText = isModNow ? 'Odbierz Moda' : 'Daj Moda';
-                    const modBtnClass = isModNow ? 'btn-reject' : 'btn-accept';
-                    
-                    activeUsersHtml += `
-                        <div class="level-card">
-                            <div class="level-info" style="text-align: left;">
-                                <h3>${usr.login} ${isModNow ? '<span class="badge-mod">MOD</span>' : ''}</h3>
-                            </div>
-                            <div style="display: flex; gap: 10px;">
-                                <button class="${modBtnClass}" onclick="przelaczModaDlaUzytkownika('${usr.login}')" style="padding: 8px 12px; font-size: 0.9rem;">${modBtnText}</button>
-                                <button class="btn-reject" onclick="usunKontoUzytkownika('${usr.login}')" style="padding: 8px 12px; font-size: 0.9rem;">Usuń konto</button>
-                            </div>
-                        </div>
-                    `;
-                });
-                if (zarejestrowaniUzytkownicy.length > 0) activeUsersHtml += '</div>';
-
                 let activeLevelsHtml = zatwierdzonePoziomy.length === 0 ? '<p>Brak poziomów na Demon List.</p>' : '<div class="level-list">';
                 zatwierdzonePoziomy.forEach((lvl, index) => {
                     const pktVal = obliczPunktyZaPoziom(index);
@@ -1111,12 +1088,29 @@
                 });
                 if (zatwierdzoneChallengeRekordy.length > 0) activeChalRecordsHtml += '</div>';
 
+                let activeUsersHtml = zarejestrowaniUzytkownicy.length === 0 ? '<p>Brak użytkowników w bazie.</p>' : '<div class="level-list">';
+                zarejestrowaniUzytkownicy.forEach((usr) => {
+                    const isModNow = czyJestModem(usr.login);
+                    const modBtnText = isModNow ? 'Odbierz Moda' : 'Daj Moda';
+                    const modBtnClass = isModNow ? 'btn-reject' : 'btn-accept';
+                    
+                    activeUsersHtml += `
+                        <div class="level-card">
+                            <div class="level-info" style="text-align: left;">
+                                <h3>${usr.login} ${isModNow ? '<span class="badge-mod">MOD</span>' : ''}</h3>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="${modBtnClass}" onclick="przelaczModaDlaUzytkownika('${usr.login}')" style="padding: 8px 12px; font-size: 0.9rem;">${modBtnText}</button>
+                                <button class="btn-reject" onclick="usunKontoUzytkownika('${usr.login}')" style="padding: 8px 12px; font-size: 0.9rem;">Usuń konto</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                if (zarejestrowaniUzytkownicy.length > 0) activeUsersHtml += '</div>';
+
                 main.innerHTML = `
                     <h1>Panel Moderatora</h1>
                     <p>Zarządzaj nadesłanymi oraz już opublikowanymi poziomami i rekordami.</p>
-                    
-                    <h3 style="margin-top:20px; color:#fff; text-align:left; width:100%;">Zarządzaj użytkownikami i uprawnieniami:</h3>
-                    ${activeUsersHtml}
 
                     <h3 style="margin-top:20px; color:#fff; text-align:left; width:100%;">Oczekujące poziomy (Demon List):</h3>
                     ${pendingHtml}
@@ -1141,6 +1135,9 @@
 
                     <h3 style="margin-top:30px; color:#ff4757; text-align:left; width:100%;">Zarządzaj rekordami Challenge List:</h3>
                     ${activeChalRecordsHtml}
+
+                    <h3 style="margin-top:40px; color:#ffa502; text-align:left; width:100%;">Zarządzaj użytkownikami i uprawnieniami:</h3>
+                    ${activeUsersHtml}
                 `;
             }
         };
